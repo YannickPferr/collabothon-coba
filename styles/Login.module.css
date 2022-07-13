@@ -3,6 +3,14 @@
     padding: 4rem 0;
     flex: 1;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.textFieldContainer {
+    width: 50%;
+    display: flex;
     gap: 1em;
     flex-direction: column;
     justify-content: center;

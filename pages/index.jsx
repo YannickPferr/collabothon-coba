@@ -1,10 +1,20 @@
-import React from "react";
-import styles from "../styles/Content.module.css"
+import Footer from '../components/Footer';
+import ResponsiveAppBar from '../components/ResponsiveAppBar';
+import { useAuth } from '../contexts/Auth';
 
 export default function MainPage(props) {
+    const { loggedIn } = useAuth();
     return (
-        <div className={styles.maincontent}>
-            Main Content Test!
-        </div>
+        <>
+            {loggedIn ? (
+                <div>
+                    <ResponsiveAppBar />
+                    {props.children}
+                    <Footer />
+                </div>
+            ) : (
+                <></>
+            )}
+        </>
     );
 }

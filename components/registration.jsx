@@ -1,13 +1,21 @@
-import { Alert, Button, TextField, Typography } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 import bcrypt from 'bcryptjs';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useState } from 'react';
+import { useAlerts } from '../contexts/Alerts';
+import { useAuth } from '../contexts/Auth';
 import db from '../firebase.config';
-import styles from '../styles/signup.module.css';
+import styles from '../styles/registration.module.css';
 
 const validEmailRegex =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default function Registration({ role = 'Buddy' }) {
+    const { login } = useAuth();
+    const { addAlert } = useAlerts();
+
+    const [name, setName] = useState('');
+    const [nameErrorField, setNameErrorField] = useState('');
+
     const [email, setEmail] = useState('');
     const [emailFieldError, setEmailFieldError] = useState('');
 
@@ -17,8 +25,6 @@ export default function Registration({ role = 'Buddy' }) {
     const [repeatPassword, setRepeatPassword] = useState('');
     const [repeatPasswordFieldError, setRepeatPasswordFieldError] =
         useState('');
-
-    const [success, setSuccess] = useState(false);
 
     const isInputValid = () => {
         const isEmailValid = emailFieldError.length === 0;
@@ -37,15 +43,24 @@ export default function Registration({ role = 'Buddy' }) {
             if (user.exists()) setEmailFieldError('User already exists');
             else {
                 const result = await setDoc(doc(db, 'user', email), {
+                    role,
+                    name,
                     email,
                     password: hashedPassword,
                 });
-                setEmail('');
-                setPassword('');
-                setSuccess(true);
-                setTimeout(() => setSuccess(false), 2000);
+                addAlert('success', 'Sucessfully signed up');
+                login();
             }
         }
+    };
+
+    const handleNameInputChange = (e) => {
+        setName(e.target.value);
+    };
+
+    const validateName = () => {
+        if (name.length > 0) setNameErrorField('');
+        else setNameErrorField('Please enter a name');
     };
 
     const handleEmailInputChange = (e) => {
@@ -53,7 +68,6 @@ export default function Registration({ role = 'Buddy' }) {
     };
 
     const validateEmail = () => {
-        //validate email
         if (email.match(validEmailRegex)) setEmailFieldError('');
         else setEmailFieldError('Please enter a valid email');
     };
@@ -80,6 +94,19 @@ export default function Registration({ role = 'Buddy' }) {
         <div className={styles.main}>
             <Typography variant="h2">Sign up as a {role}!</Typography>
             <div className={styles.textFieldContainer}>
+                <TextField
+                    id="outlined-basic"
+                    label="Name"
+                    type="text"
+                    variant="outlined"
+                    error={nameErrorField.length > 0}
+                    helperText={nameErrorField.length > 0 ? nameErrorField : ''}
+                    required
+                    fullWidth
+                    value={name}
+                    onChange={handleNameInputChange}
+                    onBlur={validateName}
+                />
                 <TextField
                     id="outlined-basic"
                     label="Email"
@@ -127,15 +154,10 @@ export default function Registration({ role = 'Buddy' }) {
                     onChange={handleRepeatPasswordInputChange}
                     onBlur={validateRepeatPassword}
                 />
+                <Button fullWidth variant="contained" onClick={submit}>
+                    Sign up
+                </Button>
             </div>
-            <Button variant="contained" onClick={submit}>
-                Submit
-            </Button>
-            {success && (
-                <Alert variant="filled" severity="success">
-                    Thanks for signing up!
-                </Alert>
-            )}
         </div>
     );
 }
