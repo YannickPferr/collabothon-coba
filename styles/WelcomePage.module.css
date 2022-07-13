@@ -14,5 +14,10 @@
 
 .cards {
     width: 80%;
-    height: auto
+    height: 60vh;
+    margin: 0 auto;
+}
+
+.stepper {
+    background: aquamarine;
 }
