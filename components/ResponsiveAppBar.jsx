@@ -14,8 +14,8 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useAuth } from '../contexts/Auth';
 
-const ResponsiveAppBar = () => {
-    const pages = ['Network', 'Chat', 'Forum'];
+const ResponsiveAppBar = ({ selectPage }) => {
+    const pages = ['Network', 'Forum', 'Chat'];
     const settings = [
         { name: 'Profile', onClick: () => {} },
         { name: 'Account Settings', onClick: () => {} },
@@ -101,10 +101,7 @@ const ResponsiveAppBar = () => {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
-                                >
+                                <MenuItem key={page} onClick={() => selectPage(page)}>
                                     <Typography textAlign="center">
                                         {page}
                                     </Typography>
@@ -142,7 +139,7 @@ const ResponsiveAppBar = () => {
                         {pages.map((page) => (
                             <Button
                                 key={page}
-                                onClick={handleCloseNavMenu}
+                                onClick={() => selectPage(page)}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 {page}

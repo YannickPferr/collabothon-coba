@@ -1,39 +1,43 @@
+import { doc, getDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { createContext, useContext, useEffect, useState } from 'react';
+import db from '../firebase.config';
 
 const AuthContext = createContext({
     loggedIn: false,
-    login: () => {},
+    user: null,
+    login: (email) => {},
     logout: () => {},
 });
 
 export const AuthProvider = ({ children }) => {
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [user, setUser] = useState({});
     const router = useRouter();
 
     useEffect(() => {
-        const session = localStorage.getItem('session');
-        console.log(session);
-        if (session === 'true') {
-            console.log('LOGIN');
-            login();
-        } else logout();
+        const email = localStorage.getItem('user');
+        if (!!email) login(email);
+        else logout();
     }, []);
 
-    const login = () => {
-        setLoggedIn(true);
-        localStorage.setItem('session', 'true');
+    const login = async (email) => {
+        const docRef = doc(db, 'user', email);
+        const userDoc = await getDoc(docRef);
+        const data = userDoc.data();
+        setUser(userDoc.data());
+        console.log(data);
+        localStorage.setItem('user', email);
         router.push('/');
     };
 
     const logout = () => {
-        setLoggedIn(false);
-        localStorage.removeItem('session');
+        setUser(null);
+        localStorage.removeItem('user');
         router.push('/login');
     };
 
     return (
-        <AuthContext.Provider value={{ loggedIn, login, logout }}>
+        <AuthContext.Provider value={{ loggedIn: !!user, user, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

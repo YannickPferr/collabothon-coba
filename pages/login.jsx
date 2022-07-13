@@ -42,7 +42,7 @@ export default function Login() {
                 );
                 if (isCorrectpassword) {
                     addAlert('success', 'Sucessfully logged in');
-                    login();
+                    login(email);
                 } else setPasswordFieldError('Incorrect password');
             } else setEmailFieldError('This user does not exist');
         }
