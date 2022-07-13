@@ -30,7 +30,6 @@ export default function Chat() {
     const [messages, setMessages] = useState([]);
 
     const fetchAllConversations = async () => {
-        console.log(user);
         const conversationsRef = collection(db, 'conversation');
         const q = query(
             conversationsRef,
@@ -52,7 +51,7 @@ export default function Chat() {
                 const q = query(
                     messagesRef,
                     where('conversation', '==', chatId),
-                    orderBy('time'),
+                    orderBy('time', 'desc'),
                     limit(1)
                 );
                 getDocs(q).then((docs) => {

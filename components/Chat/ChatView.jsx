@@ -25,24 +25,28 @@ export default function ChatView({ chatId, toUser }) {
             where('conversation', '==', chatId),
             orderBy('time')
         );
-        const messagesCopy = [...messages];
+        const allMessages = [];
         getDocs(q).then((docs) => {
             docs.forEach((msg) => {
                 const data = msg.data();
-                messagesCopy.push({
+                allMessages.push({
                     chatId: chatId,
                     from: data.from,
                     to: data.to,
                     message: data.message,
                 });
             });
-            setMessages(messagesCopy);
+            setMessages(allMessages);
         });
     };
 
     useEffect(() => {
         fetchAllMessages();
     }, []);
+
+    useEffect(() => {
+        setTimeout(() => fetchAllMessages(), 5000);
+    }, [messages]);
 
     const sendMessage = async () => {
         const docRef = await addDoc(collection(db, 'message'), {

@@ -25,7 +25,6 @@ export const AuthProvider = ({ children }) => {
         const userDoc = await getDoc(docRef);
         const data = userDoc.data();
         setUser(userDoc.data());
-        console.log(data);
         localStorage.setItem('user', email);
         router.push('/');
     };
