@@ -1,6 +1,6 @@
 import { Button, Typography } from '@mui/material';
 import { useState } from 'react';
-import Registration from '../components/registration';
+import Registration from '../components/Registration';
 import styles from '../styles/Signup.module.css';
 
 export default function Signup() {
@@ -13,7 +13,7 @@ export default function Signup() {
 
     const handleRefugeeClick = async (e) => {
         e.preventDefault();
-        setSelectedRole('Migrant');
+        setSelectedRole('Refugee');
     };
 
     return (
@@ -36,7 +36,7 @@ export default function Signup() {
                             variant="contained"
                             onClick={handleRefugeeClick}
                         >
-                            Migrant
+                            Refugee
                         </Button>
                     </div>
                 </div>

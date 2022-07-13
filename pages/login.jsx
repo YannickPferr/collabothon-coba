@@ -1,13 +1,15 @@
-import { Alert, Button, TextField, Typography } from '@mui/material';
+import { Button, Link, TextField, Typography } from '@mui/material';
 import bcrypt from 'bcryptjs';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { useState } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { useContext, useState } from 'react';
 import db from '../firebase.config';
 import styles from '../styles/Login.module.css';
+import { AlertContext } from '../utils/AlertsContext';
 
 const validEmailRegex =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default function Login() {
+    const { addAlert } = useContext(AlertContext);
     const [email, setEmail] = useState('');
     const [emailFieldError, setEmailFieldError] = useState('');
 
@@ -29,17 +31,17 @@ export default function Login() {
             const docRef = doc(db, 'user', email);
             const user = await getDoc(docRef);
 
-            if (user.exists()) setEmailFieldError('User already exists');
-            else {
-                const result = await setDoc(doc(db, 'user', email), {
-                    email,
-                    password: hashedPassword,
-                });
-                setEmail('');
-                setPassword('');
-                setSuccess(true);
-                setTimeout(() => setSuccess(false), 2000);
-            }
+            if (user.exists()) {
+                const hashedPassword = await user.get('password');
+                const isCorrectpassword = bcrypt.compareSync(
+                    password,
+                    hashedPassword
+                );
+                if (isCorrectpassword) {
+                    addAlert('success', 'Sucessfully logged in');
+                    //login();
+                } else setPasswordFieldError('Incorrect password');
+            } else setEmailFieldError('This user does not exist');
         }
     };
 
@@ -64,8 +66,7 @@ export default function Login() {
 
     return (
         <div className={styles.main}>
-            <Typography variant="h1">Migrant Mate!</Typography>
-            <h1>Hey, put in your name!</h1>
+            <Typography variant="h1">ReNetwork</Typography>
             <div className={styles.textFieldContainer}>
                 <TextField
                     id="outlined-basic"
@@ -97,13 +98,21 @@ export default function Login() {
                     onChange={handlePasswordInputChange}
                     onBlur={validatePassword}
                 />
+                <Button
+                    fullWidth
+                    size="large"
+                    variant="contained"
+                    onClick={submit}
+                >
+                    Login
+                </Button>
             </div>
-            <Button onClick={submit}>Submit</Button>
-            {success && (
-                <Alert variant="filled" severity="success">
-                    Thanks for signing up!
-                </Alert>
-            )}
+            <Typography variant="subtitle1" display="block" gutterBottom>
+                or
+            </Typography>
+            <Link href="signup" underline="hover">
+                Sign up
+            </Link>
         </div>
     );
 }
