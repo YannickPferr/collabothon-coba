@@ -13,10 +13,11 @@ import Location from "../components/profile/Location";
 import Languages from "../components/profile/Languages";
 import Interests from "../components/profile/Interests";
 import Description from "../components/profile/Description";
+import { useRouter } from "next/router";
 
 function CreateProfile() {
   const [activeStep, setActiveStep] = React.useState(0);
-
+  const router = useRouter();
   const steps = ["Start", "Location", "Languages", "Interests", "Description"];
 
   const pages = [
@@ -42,9 +43,7 @@ function CreateProfile() {
           variant="contained"
           className={styles.button}
           onClick={() => {
-            activeStep >= 4
-              ? console.log("FINISHED")
-              : setActiveStep(activeStep + 1);
+            activeStep >= 4 ? router.push("/") : setActiveStep(activeStep + 1);
           }}
         >
           <Typography variant="h5">
