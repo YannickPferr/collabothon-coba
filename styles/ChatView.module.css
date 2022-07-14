@@ -21,7 +21,7 @@
 }
 
 .chatBubbleLeft {
-    width: 50%;
+    width: 50% !important;
     background-color: greenyellow;
     border-radius: 20px;
 }
@@ -38,7 +38,7 @@
 }
 
 .chatBubbleRight {
-    width: 50%;
+    width: 50% !important;
     background-color: #1976d2;
     border-radius: 20px;
 }

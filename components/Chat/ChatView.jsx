@@ -28,33 +28,35 @@ export default function ChatView({ chatId, toUser, msgs }) {
         <div className={styles.container}>
             <div className={styles.chatView}>
                 <List sx={{ width: '100%' }}>
-                    {msgs.map((message) => (
-                        <div
-                            className={
-                                message.from === user.email
-                                    ? styles.rightContainer
-                                    : styles.leftContainer
-                            }
-                        >
-                            <ListItem
-                                key={message.time}
+                    {msgs.map((message) => {
+                        return (
+                            <div
                                 className={
                                     message.from === user.email
-                                        ? styles.chatBubbleRight
-                                        : styles.chatBubbleLeft
+                                        ? styles.rightContainer
+                                        : styles.leftContainer
                                 }
                             >
-                                <ListItemText
+                                <ListItem
+                                    key={message.time}
                                     className={
                                         message.from === user.email
-                                            ? styles.textRight
-                                            : styles.textLeft
+                                            ? styles.chatBubbleRight
+                                            : styles.chatBubbleLeft
                                     }
-                                    primary={message.message}
-                                />
-                            </ListItem>
-                        </div>
-                    ))}
+                                >
+                                    <ListItemText
+                                        className={
+                                            message.from === user.email
+                                                ? styles.textRight
+                                                : styles.textLeft
+                                        }
+                                        primary={message.message}
+                                    />
+                                </ListItem>
+                            </div>
+                        );
+                    })}
                 </List>
             </div>
             <div className={styles.chatView}>

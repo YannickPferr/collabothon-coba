@@ -8,15 +8,16 @@ export default function Signup() {
     const [selectedRole, setSelectedRole] = useState('');
     const { loggedIn } = useAuth();
 
-    const handleBuddyClick = async (e) => {
-        e.preventDefault();
-        setSelectedRole('Buddy');
-    };
 
-    const handleRefugeeClick = async (e) => {
-        e.preventDefault();
-        setSelectedRole('Refugee');
-    };
+  const handleBuddyClick = async (e) => {
+    e.preventDefault();
+    setSelectedRole("Buddy");
+  };
+
+  const handleRefugeeClick = async (e) => {
+    e.preventDefault();
+    setSelectedRole("Refugee");
+  };
 
     return (
         <>
@@ -60,4 +61,5 @@ export default function Signup() {
             )}
         </>
     );
+
 }

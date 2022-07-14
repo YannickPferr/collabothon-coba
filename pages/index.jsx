@@ -31,23 +31,21 @@ export default function MainPage(props) {
     useEffect(() => {
         const unsub = onSnapshot(collection(db, 'message'), (doc) => {
             const convCopy = JSON.parse(JSON.stringify(conversations));
-            const newMessages = [];
-            let from = '';
-            let to = '';
-            let conv = '';
-            doc.docs.forEach((change) => {
-                const changedData = change.data();
-                newMessages.push(changedData);
-                from = changedData.from;
-                to = changedData.to;
-                conv = changedData.conversation;
+            doc.docChanges().forEach((change) => {
+                const changedData = change.doc.data();
+                convCopy[changedData.from]
+                    .find(
+                        (conversation) =>
+                            conversation.chatId === changedData.conversation
+                    )
+                    .messages?.push(changedData);
+                convCopy[changedData.to]
+                    .find(
+                        (conversation) =>
+                            conversation.chatId === changedData.conversation
+                    )
+                    .messages?.push(changedData);
             });
-            convCopy[from].find(
-                (conversation) => conversation.chatId === conv
-            ).messages = newMessages;
-            convCopy[to].find(
-                (conversation) => conversation.chatId === conv
-            ).messages = newMessages;
             setConversations(convCopy);
         });
         return () => unsub();
