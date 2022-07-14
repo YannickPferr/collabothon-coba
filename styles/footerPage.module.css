@@ -12,13 +12,11 @@
 
 .textHeader {
   color: white;
-  /*font-size: 3vw;*/
   text-align: center;
 }
 
 .text {
   color: black;
-  /*font-size: 1vw;*/
   text-align: justify;
   margin-left: 5vw;
 }

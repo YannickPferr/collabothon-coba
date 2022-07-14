@@ -101,7 +101,25 @@ export default function Registration({ role = "Buddy" }) {
       },
     },
   });
-  console.log(role);
+
+  const textSizingNormal = {
+    fontSize: {
+      lg: 30,
+      md: 20,
+      sm: 15,
+      xs: 15,
+    },
+  };
+
+  const textSizingHeader = {
+    fontSize: {
+      lg: 40,
+      md: 25,
+      sm: 20,
+      xs: 20,
+    },
+  };
+
   return (
     <div className={styles.main}>
       <img
@@ -114,7 +132,11 @@ export default function Registration({ role = "Buddy" }) {
         className={styles.signupImage}
       />
 
-      <Typography variant="h2" className={styles.signupHeader}>
+      <Typography
+        variant="h2"
+        className={styles.signupHeader}
+        sx={textSizingHeader}
+      >
         Sign up as a {role}!
       </Typography>
       <div className={styles.textFieldContainer}>

@@ -76,10 +76,34 @@ export default function Login() {
     },
   });
 
+  const textSizingAppName = {
+    fontSize: {
+      lg: 150,
+      md: 100,
+      sm: 60,
+      xs: 30,
+    },
+  };
+
+  const textSizingHeader = {
+    fontSize: {
+      lg: 60,
+      md: 50,
+      sm: 35,
+      xs: 25,
+    },
+  };
+
   return (
     <div className={styles.main}>
-      <img src={"White_Notext.svg"} alt="Logo" className={styles.logo} />
-      <Typography variant="h1" className={styles.appName}>
+      <div className={styles.appLogoImageDiv}>
+        <img src={"White_Notext.svg"} alt="Logo" className={styles.appLogo} />
+      </div>
+      <Typography
+        variant="h1"
+        className={styles.appName}
+        sx={textSizingAppName}
+      >
         ReNetwork
       </Typography>
       <div className={styles.textFieldContainer}>
@@ -123,17 +147,19 @@ export default function Login() {
           display="block"
           gutterBottom
           className={styles.signupHeader}
+          sx={textSizingHeader}
         >
           Not have an account yet?
         </Typography>
-
-        <Link href="signup" underline="hover">
-          <img
-            src={"mock-images/join-us.png"}
-            alt="Join Us Its Free"
-            className={styles.joinUsImage}
-          />
-        </Link>
+        <div className={styles.joinUsImageDiv}>
+          <Link href="signup" underline="hover">
+            <img
+              src={"mock-images/join-us.png"}
+              alt="Join Us Its Free"
+              className={styles.joinUsImage}
+            />
+          </Link>
+        </div>
       </div>
     </div>
   );
