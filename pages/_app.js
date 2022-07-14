@@ -1,13 +1,23 @@
+import Head from 'next/head';
 import Alerts from '../components/Alerts';
+import AlertsProvider from '../contexts/Alerts';
+import { AuthProvider } from '../contexts/Auth';
 import '../styles/globals.css';
-import AlertsProvider from '../utils/AlertsContext';
 
 function MyApp({ Component, pageProps }) {
     return (
-        <AlertsProvider>
-          <Alerts></Alerts>
-            <Component {...pageProps} />
-        </AlertsProvider>
+        <>
+            <Head>
+                {/*<link rel="icon" href="/favicon-compressed.png" />*/}
+                <title>Re Network</title>
+            </Head>
+            <AuthProvider>
+                <AlertsProvider>
+                    <Alerts />
+                    <Component {...pageProps} />
+                </AlertsProvider>
+            </AuthProvider>
+        </>
     );
 }
 

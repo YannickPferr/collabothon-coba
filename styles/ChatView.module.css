@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.chatView {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    column-gap: 10px;
+    row-gap: 20px;
+}
+
+.leftContainer {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+    margin: 5px 0;
+}
+
+.chatBubbleLeft {
+    width: 50%;
+    background-color: greenyellow;
+    border-radius: 20px;
+}
+
+.textLeft {
+    text-align: left;
+}
+
+.rightContainer {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    margin: 5px 0;
+}
+
+.chatBubbleRight {
+    width: 50%;
+    background-color: #1976d2;
+    border-radius: 20px;
+}
+
+.textRight {
+    text-align: right;
+}
