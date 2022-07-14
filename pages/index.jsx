@@ -10,11 +10,13 @@ import {
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import Chat from '../components/Chat/Chat';
+import Footer from '../components/Footer';
 import Forum from '../components/Forum';
 import Network from '../components/Network';
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
 import { useAuth } from '../contexts/Auth';
 import db from '../firebase.config';
+import styles from '../styles/Index.module.css';
 
 export default function MainPage(props) {
     const { user, loggedIn } = useAuth();
@@ -58,7 +60,10 @@ export default function MainPage(props) {
                     <ResponsiveAppBar
                         selectPage={(page) => setSelectedPage(page)}
                     />
-                    <div>{components[selectedPage]}</div>
+                    <div className={styles.container}>
+                        {components[selectedPage]}
+                    </div>
+                    <Footer></Footer>
                 </div>
             ) : (
                 <></>

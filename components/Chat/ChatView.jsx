@@ -1,3 +1,4 @@
+import SendIcon from '@mui/icons-material/Send';
 import { Button, List, ListItem, ListItemText, TextField } from '@mui/material';
 import { addDoc, collection, Timestamp } from 'firebase/firestore';
 import { useState } from 'react';
@@ -27,7 +28,7 @@ export default function ChatView({ chatId, toUser, msgs }) {
     return (
         <div className={styles.container}>
             <div className={styles.chatView}>
-                <List sx={{ width: '100%' }}>
+                <List sx={{ width: '100%', height: '100%' }}>
                     {msgs.map((message) => {
                         return (
                             <div
@@ -59,7 +60,7 @@ export default function ChatView({ chatId, toUser, msgs }) {
                     })}
                 </List>
             </div>
-            <div className={styles.chatView}>
+            <div className={styles.sendArea}>
                 <TextField
                     id="outlined-basic"
                     label="Write a message"
@@ -71,7 +72,7 @@ export default function ChatView({ chatId, toUser, msgs }) {
                     onChange={handleMessageInputChange}
                 />
                 <Button size="large" variant="contained" onClick={sendMessage}>
-                    Send
+                    <SendIcon />
                 </Button>
             </div>
         </div>

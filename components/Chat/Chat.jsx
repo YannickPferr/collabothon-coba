@@ -24,20 +24,18 @@ export default function Chat({ conversations }) {
                         message={
                             conversation.messages[
                                 conversation.messages.length - 1
-                            ].message
+                            ]?.message
                         }
                         selectChat={setSelectedChat}
                         index={index}
                     ></MessagePreview>
                 ))}
             </List>
-            {conversations[user.email][selectedChat].messages.length > 0 && (
-                <ChatView
-                    chatId={conversations[user.email][selectedChat].chatId}
-                    toUser={conversations[user.email][selectedChat].toUser}
-                    msgs={conversations[user.email][selectedChat].messages}
-                ></ChatView>
-            )}
+            <ChatView
+                chatId={conversations[user.email][selectedChat].chatId}
+                toUser={conversations[user.email][selectedChat].toUser}
+                msgs={conversations[user.email][selectedChat].messages}
+            ></ChatView>
         </div>
     );
 }

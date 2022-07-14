@@ -45,6 +45,7 @@ const ResponsiveAppBar = ({ selectPage }) => {
         setAnchorElUser(null);
     };
 
+    const fullname = user.name.split(' ');
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -160,10 +161,12 @@ const ResponsiveAppBar = ({ selectPage }) => {
                                 onClick={handleOpenUserMenu}
                                 sx={{ p: 0 }}
                             >
-                                <Avatar
-                                    alt={user.name}
-                                    src="/static/images/avatar/2.jpg"
-                                />
+                                <Avatar src="/static/images/avatar/2.jpg">
+                                    {fullname[0].charAt(0) +
+                                        (fullname.length > 1
+                                            ? fullname[1].charAt(0)
+                                            : '')}
+                                </Avatar>
                             </IconButton>
                         </Tooltip>
                         <Menu

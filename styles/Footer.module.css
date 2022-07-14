@@ -1,8 +1,11 @@
 .footer {
-  border-top: 1px solid lightgray;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border-top: 1px solid lightgray;
 }
 
 .column {
-  display: block;
-  margin-bottom: 5px;
+    display: block;
+    margin-bottom: 5px;
 }

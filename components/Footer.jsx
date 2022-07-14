@@ -4,18 +4,24 @@ import styles from '../styles/Footer.module.css';
 export default function Footer(props) {
     return (
         <div className={styles.footer}>
-            <div className={styles.column}>
-                <Link href="#">FAQ</Link>
-                <Link href="#">Best Practices</Link>
-            </div>
-            <div className={styles.column}>
-                <Link href="#">Privacy Policy</Link>
-                <Link href="#">Terms and Conditions</Link>
-            </div>
-            <div className={styles.column}>
-                <Link href="#">Support</Link>
-                <Link href="#">Feedback</Link>
-            </div>
+            <Link href="#" underline="hover">
+                FAQ
+            </Link>
+            <Link href="#" underline="hover">
+                Best Practices
+            </Link>
+            <Link href="#" underline="hover">
+                Privacy Policy
+            </Link>
+            <Link href="#" underline="hover">
+                Terms and Conditions
+            </Link>
+            <Link href="#" underline="hover">
+                Support
+            </Link>
+            <Link href="#" underline="hover">
+                Feedback
+            </Link>
         </div>
     );
 }
