@@ -3,6 +3,10 @@
     flex-direction: row;
     justify-content: space-evenly;
     border-top: 1px solid lightgray;
+    background: rgba(33, 177, 138, 0.7);
+    bottom: 0;
+    height: 5vh;
+    align-items: center;
 }
 
 .column {

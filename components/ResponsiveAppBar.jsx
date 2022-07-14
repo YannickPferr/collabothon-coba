@@ -18,8 +18,8 @@ const ResponsiveAppBar = ({ selectPage }) => {
     const { user } = useAuth();
     const pages = ['Network', 'Forum', 'Chat'];
     const settings = [
-        { name: 'Profile', onClick: () => {} },
-        { name: 'Account Settings', onClick: () => {} },
+        { name: 'Profile', onClick: () => { } },
+        { name: 'Account Settings', onClick: () => { } },
         {
             name: 'Logout',
             onClick: () => logout(),
@@ -47,7 +47,7 @@ const ResponsiveAppBar = ({ selectPage }) => {
 
     const fullname = user.name.split(' ');
     return (
-        <AppBar position="static">
+        <AppBar position="static" style={{ backgroundColor: "rgba(33, 177, 138,0.7)" }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <AdbIcon

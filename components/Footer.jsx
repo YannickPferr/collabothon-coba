@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import Link from "@mui/material/Link";
 import styles from "../styles/Footer.module.css";
 
@@ -5,22 +6,34 @@ export default function Footer(props) {
   return (
     <div className={styles.footer}>
       <Link href="/faq" underline="hover">
-        FAQ
+        <Typography color={"white"}>
+          FAQ
+        </Typography>
       </Link>
       <Link href="/best-practices" underline="hover">
-        Best Practices
+        <Typography color={"white"}>
+          Best Practices
+        </Typography>
       </Link>
       <Link href="/privacy-policy" underline="hover">
-        Privacy Policy
+        <Typography color={"white"}>
+          Privacy Policy
+        </Typography>
       </Link>
       <Link href="/terms-and-conditions" underline="hover">
-        Terms and Conditions
+        <Typography color={"white"}>
+          Terms and Conditions
+        </Typography>
       </Link>
       <Link href="/support" underline="hover">
-        Support
+        <Typography color={"white"}>
+          Support
+        </Typography>
       </Link>
       <Link href="/feedback" underline="hover">
-        Feedback
+        <Typography color={"white"}>
+          Feedback
+        </Typography>
       </Link>
     </div>
   );
