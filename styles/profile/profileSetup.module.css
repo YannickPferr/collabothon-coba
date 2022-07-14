@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+.welcomeImageContainer {
+  width: 100%;
+  height: auto;
+}
+
+.locationImageContainer {
+  width: 100%;
+  height: auto;
+}
+
+.profileSetupImage {
+  width: inherit;
+  text-align: center;
+}
+
+.headerText {
+  font-family: "Roboto";
+  color: white;
+}
+
+.languageHeader {
+  font-family: "Roboto";
+  color: white;
+  margin-bottom: 35px;
+}
+
+.welcomeTextContainer {
+  display: flex;
+  align-items: center;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  height: 20vh;
+  justify-content: space-between;
+}
+
+.gmapContainer {
+  display: flex;
+  justify-content: flex-end;
+}
