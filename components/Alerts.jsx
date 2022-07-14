@@ -1,9 +1,8 @@
 import { Alert, Snackbar } from '@mui/material';
-import { useContext } from 'react';
-import { AlertContext } from '../utils/AlertsContext';
+import { useAlerts } from '../contexts/Alerts';
 
 export default function Alerts() {
-    const { alerts } = useContext(AlertContext);
+    const { alerts } = useAlerts();
 
     return (
         <>

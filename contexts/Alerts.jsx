@@ -1,7 +1,6 @@
-import * as React from 'react';
-import { useCallback, useState } from 'react';
+import { createContext, useCallback, useContext, useState } from 'react';
 
-export const AlertContext = React.createContext({
+const AlertContext = createContext({
     alerts: [],
     addAlert: (type, message, alertTime = 2000) => {},
 });
@@ -37,3 +36,5 @@ export default function AlertsProvider({ children }) {
         </AlertContext.Provider>
     );
 }
+
+export const useAlerts = () => useContext(AlertContext);

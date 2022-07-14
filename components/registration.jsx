@@ -1,107 +1,111 @@
-import { Button, TextField, Typography } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import bcrypt from "bcryptjs";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { useContext, useState } from "react";
-import db from "../firebase.config";
-import styles from "../styles/registration.module.css";
-import { AlertContext } from "../utils/AlertsContext";
+import { Button, TextField, Typography } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import bcrypt from 'bcryptjs';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { useState } from 'react';
+import { useAlerts } from '../contexts/Alerts';
+import { useAuth } from '../contexts/Auth';
+import db from '../firebase.config';
+import styles from '../styles/registration.module.css';
 
 const validEmailRegex =
-  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-export default function Registration({ role = "Buddy" }) {
-  const { addAlert } = useContext(AlertContext);
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+export default function Registration({ role = 'Buddy' }) {
+    const { addAlert } = useAlerts();
+    const { login } = useAuth();
 
-  const [name, setName] = useState("");
-  const [nameErrorField, setNameErrorField] = useState("");
+    const [name, setName] = useState('');
+    const [nameErrorField, setNameErrorField] = useState('');
 
-  const [email, setEmail] = useState("");
-  const [emailFieldError, setEmailFieldError] = useState("");
+    const [email, setEmail] = useState('');
+    const [emailFieldError, setEmailFieldError] = useState('');
 
-  const [password, setPassword] = useState("");
-  const [passwordFieldError, setPasswordFieldError] = useState("");
+    const [password, setPassword] = useState('');
+    const [passwordFieldError, setPasswordFieldError] = useState('');
 
-  const [repeatPassword, setRepeatPassword] = useState("");
-  const [repeatPasswordFieldError, setRepeatPasswordFieldError] = useState("");
+    const [repeatPassword, setRepeatPassword] = useState('');
+    const [repeatPasswordFieldError, setRepeatPasswordFieldError] =
+        useState('');
 
-  const isInputValid = () => {
-    const isEmailValid = emailFieldError.length === 0;
-    const isPasswordValid = passwordFieldError.length === 0;
-    const isPasswordRepeatValid = repeatPasswordFieldError.length === 0;
-    return isEmailValid && isPasswordValid && isPasswordRepeatValid;
-  };
+    const isInputValid = () => {
+        const isEmailValid = emailFieldError.length === 0;
+        const isPasswordValid = passwordFieldError.length === 0;
+        const isPasswordRepeatValid = repeatPasswordFieldError.length === 0;
+        return isEmailValid && isPasswordValid && isPasswordRepeatValid;
+    };
 
-  const submit = async (e) => {
-    e.preventDefault();
-    const hashedPassword = bcrypt.hashSync(password, 10);
-    if (isInputValid()) {
-      const docRef = doc(db, "user", email);
-      const user = await getDoc(docRef);
+    const submit = async (e) => {
+        e.preventDefault();
+        const hashedPassword = bcrypt.hashSync(password, 10);
+        if (isInputValid()) {
+            const docRef = doc(db, 'user', email);
+            const user = await getDoc(docRef);
 
-      if (user.exists()) setEmailFieldError("User already exists");
-      else {
-        const result = await setDoc(doc(db, "user", email), {
-          role,
-          name,
-          email,
-          password: hashedPassword,
-        });
-        addAlert("success", "Sucessfully signed up");
-        //login()
-      }
-    }
-  };
+            if (user.exists()) setEmailFieldError('User already exists');
+            else {
+                const result = await setDoc(doc(db, 'user', email), {
+                    role,
+                    name,
+                    email,
+                    password: hashedPassword,
+                });
+                addAlert('success', 'Sucessfully signed up');
+                login(email);
+            }
+        }
+    };
 
-  const handleNameInputChange = (e) => {
-    setName(e.target.value);
-  };
+    const handleNameInputChange = (e) => {
+        setName(e.target.value);
+    };
 
-  const validateName = () => {
-    if (name.length > 0) setNameErrorField("");
-    else setNameErrorField("Please enter a name");
-  };
+    const validateName = () => {
+        if (name.length > 0) setNameErrorField('');
+        else setNameErrorField('Please enter a name');
+    };
 
-  const handleEmailInputChange = (e) => {
-    setEmail(e.target.value);
-  };
+    const handleEmailInputChange = (e) => {
+        setEmail(e.target.value);
+    };
 
-  const validateEmail = () => {
-    if (email.match(validEmailRegex)) setEmailFieldError("");
-    else setEmailFieldError("Please enter a valid email");
-  };
+    const validateEmail = () => {
+        if (email.match(validEmailRegex)) setEmailFieldError('');
+        else setEmailFieldError('Please enter a valid email');
+    };
 
-  const handlePasswordInputChange = (e) => {
-    setPassword(e.target.value);
-  };
+    const handlePasswordInputChange = (e) => {
+        setPassword(e.target.value);
+    };
 
-  const validatePassword = () => {
-    if (password.length > 0) setPasswordFieldError("");
-    else setPasswordFieldError("Please enter a valid password");
-  };
+    const validatePassword = () => {
+        if (password.length > 0) setPasswordFieldError('');
+        else setPasswordFieldError('Please enter a valid password');
+    };
 
-  const handleRepeatPasswordInputChange = (e) => {
-    setRepeatPassword(e.target.value);
-  };
+    const handleRepeatPasswordInputChange = (e) => {
+        setRepeatPassword(e.target.value);
+    };
 
-  const validateRepeatPassword = () => {
-    if (repeatPassword === password) setRepeatPasswordFieldError("");
-    else setRepeatPasswordFieldError("Passwords do not match");
-  };
+    const validateRepeatPassword = () => {
+        if (repeatPassword === password) setRepeatPasswordFieldError('');
+        else setRepeatPasswordFieldError('Passwords do not match');
+    };
 
-  const customTextFieldTheme = createTheme({
-    components: {
-      // Inputs
-      MuiOutlinedInput: {
-        styleOverrides: {
-          root: {
-            backgroundColor: "white",
-            opacity: 0.8,
-          },
+    const customTextFieldTheme = createTheme({
+        components: {
+            // Inputs
+            MuiOutlinedInput: {
+                styleOverrides: {
+                    root: {
+                        backgroundColor: 'white',
+                        opacity: 0.8,
+                    },
+                },
+            },
         },
-      },
-    },
-  });
-
+    });
+    
+    
   const textSizingNormal = {
     fontSize: {
       lg: 30,
@@ -119,9 +123,9 @@ export default function Registration({ role = "Buddy" }) {
       xs: 20,
     },
   };
-
-  return (
-    <div className={styles.main}>
+  
+    return (
+        <div className={styles.main}>
       <img
         src={
           role.toLocaleLowerCase() === "buddy"
@@ -209,5 +213,5 @@ export default function Registration({ role = "Buddy" }) {
         </Button>
       </div>
     </div>
-  );
+    );
 }

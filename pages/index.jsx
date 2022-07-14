@@ -1,0 +1,141 @@
+import {
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    onSnapshot,
+    orderBy,
+    query,
+    where,
+} from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import Chat from '../components/Chat/Chat';
+import Forum from '../components/Forum';
+import Network from '../components/Network';
+import ResponsiveAppBar from '../components/ResponsiveAppBar';
+import { useAuth } from '../contexts/Auth';
+import db from '../firebase.config';
+
+export default function MainPage(props) {
+    const { user, loggedIn } = useAuth();
+    const [selectedPage, setSelectedPage] = useState('Network');
+
+    const [conversations, setConversations] = useState(props.conversations);
+
+    const components = {
+        Network: <Network />,
+        Forum: <Forum />,
+        Chat: <Chat conversations={conversations} />,
+    };
+
+    useEffect(() => {
+        const unsub = onSnapshot(collection(db, 'message'), (doc) => {
+            const convCopy = JSON.parse(JSON.stringify(conversations));
+            const newMessages = [];
+            let from = '';
+            let to = '';
+            let conv = '';
+            doc.docs.forEach((change) => {
+                const changedData = change.data();
+                newMessages.push(changedData);
+                from = changedData.from;
+                to = changedData.to;
+                conv = changedData.conversation;
+            });
+            convCopy[from].find(
+                (conversation) => conversation.chatId === conv
+            ).messages = newMessages;
+            convCopy[to].find(
+                (conversation) => conversation.chatId === conv
+            ).messages = newMessages;
+            setConversations(convCopy);
+        });
+        return () => unsub();
+    }, []);
+
+    return (
+        <>
+            {loggedIn ? (
+                <div style={{ height: '100vh' }}>
+                    <ResponsiveAppBar
+                        selectPage={(page) => setSelectedPage(page)}
+                    />
+                    <div>{components[selectedPage]}</div>
+                </div>
+            ) : (
+                <></>
+            )}
+        </>
+    );
+}
+
+const fetchAllMessages = async (chatId) => {
+    const messagesRef = collection(db, 'message');
+    const q = query(
+        messagesRef,
+        where('conversation', '==', chatId),
+        orderBy('time')
+    );
+    const allMessages = [];
+    const docs = await getDocs(q);
+    docs.forEach((msg) => {
+        const data = msg.data();
+        allMessages.push({
+            chatId: chatId,
+            from: data.from,
+            to: data.to,
+            message: data.message,
+            time: data.time,
+        });
+    });
+    return allMessages;
+};
+const fetchAllConversations = async () => {
+    const conversations = {};
+    const conversationsRef = collection(db, 'conversation');
+    const relevantConversations = await getDocs(conversationsRef);
+    await Promise.all(
+        relevantConversations.docs.map(async (conversation) => {
+            // doc.data() is never undefined for query doc snapshots
+            const convData = conversation.data();
+            const docRefBuddy = doc(db, 'user', convData.buddy);
+            const buddyDoc = await getDoc(docRefBuddy);
+            const buddyData = buddyDoc.data();
+
+            const docRefMigrant = doc(db, 'user', convData.migrant);
+            const migrantDoc = await getDoc(docRefMigrant);
+            const migrantData = migrantDoc.data();
+
+            const messages = await fetchAllMessages(conversation.id);
+
+            if (!conversations[migrantData.email])
+                conversations[migrantData.email] = [];
+            conversations[migrantData.email].push({
+                chatId: conversation.id,
+                toUser: { email: buddyData.email, name: buddyData.name },
+                messages,
+            });
+
+            if (!conversations[buddyData.email])
+                conversations[buddyData.email] = [];
+            conversations[buddyData.email].push({
+                chatId: conversation.id,
+                toUser: { email: migrantData.email, name: migrantData.name },
+                messages,
+            });
+        })
+    );
+    return conversations;
+};
+
+export async function getStaticProps() {
+    const conversations = await fetchAllConversations();
+    console.log(JSON.parse(JSON.stringify(conversations)));
+    return {
+        props: {
+            conversations: JSON.parse(JSON.stringify(conversations)),
+        },
+
+        revalidate: 5,
+    };
+}

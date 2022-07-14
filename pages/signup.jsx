@@ -1,22 +1,24 @@
-import { Button, Typography } from "@mui/material";
-import { useState } from "react";
-import Registration from "../components/Registration";
-import styles from "../styles/Signup.module.css";
+import { Button, Typography } from '@mui/material';
+import { useState } from 'react';
+import Registration from '../components/Registration';
+import { useAuth } from '../contexts/Auth';
+import styles from '../styles/Signup.module.css';
 
 export default function Signup() {
-  const [selectedRole, setSelectedRole] = useState("");
+    const [selectedRole, setSelectedRole] = useState('');
+    const { loggedIn } = useAuth();
 
-  const handleBuddyClick = async (e) => {
-    e.preventDefault();
-    setSelectedRole("Buddy");
-  };
+    const handleBuddyClick = async (e) => {
+        e.preventDefault();
+        setSelectedRole('Buddy');
+    };
 
-  const handleRefugeeClick = async (e) => {
-    e.preventDefault();
-    setSelectedRole("Refugee");
-  };
-
-  const textSizingNormal = {
+    const handleRefugeeClick = async (e) => {
+        e.preventDefault();
+        setSelectedRole('Refugee');
+    };
+    
+      const textSizingNormal = {
     fontSize: {
       lg: 30,
       md: 20,
@@ -34,12 +36,13 @@ export default function Signup() {
     },
   };
 
-  return (
-    <>
-      {selectedRole ? (
-        <Registration role={selectedRole}></Registration>
-      ) : (
-        <div className={styles.main}>
+    return (
+        <>
+            {!loggedIn ? (
+                selectedRole ? (
+                    <Registration role={selectedRole}></Registration>
+                ) : (
+                    <div className={styles.main}>
           <Typography
             variant="h2"
             className={styles.header}
@@ -73,7 +76,10 @@ export default function Signup() {
             </div>
           </div>
         </div>
-      )}
-    </>
-  );
+                )
+            ) : (
+                <></>
+            )}
+        </>
+    );
 }
