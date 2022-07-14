@@ -19,7 +19,10 @@ const ResponsiveAppBar = ({ selectPage }) => {
     const settings = [
         { name: 'Profile', onClick: () => {} },
         { name: 'Account Settings', onClick: () => {} },
-        { name: 'Logout', onClick: () => logout() },
+        {
+            name: 'Logout',
+            onClick: () => logout(),
+        },
     ];
     const { logout } = useAuth();
 
@@ -101,7 +104,10 @@ const ResponsiveAppBar = ({ selectPage }) => {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={() => selectPage(page)}>
+                                <MenuItem
+                                    key={page}
+                                    onClick={() => selectPage(page)}
+                                >
                                     <Typography textAlign="center">
                                         {page}
                                     </Typography>

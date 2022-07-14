@@ -1,52 +1,13 @@
 import { Button, List, ListItem, ListItemText, TextField } from '@mui/material';
-import {
-    addDoc,
-    collection,
-    getDocs,
-    orderBy,
-    query,
-    Timestamp,
-    where,
-} from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import { addDoc, collection, Timestamp } from 'firebase/firestore';
+import { useState } from 'react';
 import { useAuth } from '../../contexts/Auth';
 import db from '../../firebase.config';
 import styles from '../../styles/ChatView.module.css';
 
-export default function ChatView({ chatId, toUser }) {
+export default function ChatView({ chatId, toUser, msgs }) {
     const { user } = useAuth();
-    const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);
-
-    const fetchAllMessages = async () => {
-        const messagesRef = collection(db, 'message');
-        const q = query(
-            messagesRef,
-            where('conversation', '==', chatId),
-            orderBy('time')
-        );
-        const allMessages = [];
-        getDocs(q).then((docs) => {
-            docs.forEach((msg) => {
-                const data = msg.data();
-                allMessages.push({
-                    chatId: chatId,
-                    from: data.from,
-                    to: data.to,
-                    message: data.message,
-                });
-            });
-            setMessages(allMessages);
-        });
-    };
-
-    useEffect(() => {
-        fetchAllMessages();
-    }, []);
-
-    useEffect(() => {
-        setTimeout(() => fetchAllMessages(), 5000);
-    }, [messages]);
+    const [text, setText] = useState('');
 
     const sendMessage = async () => {
         const docRef = await addDoc(collection(db, 'message'), {
@@ -54,28 +15,20 @@ export default function ChatView({ chatId, toUser }) {
             from: user.email,
             to: toUser.email,
             time: Timestamp.now(),
-            message,
+            message: text,
         });
-        const messagesCopy = [...messages];
-        messagesCopy.push({
-            conversation: chatId,
-            from: user.email,
-            to: toUser.email,
-            time: Timestamp.now(),
-            message,
-        });
-        setMessages(messagesCopy);
+        setText('');
     };
 
     const handleMessageInputChange = (e) => {
-        setMessage(e.target.value);
+        setText(e.target.value);
     };
 
     return (
         <div className={styles.container}>
             <div className={styles.chatView}>
                 <List sx={{ width: '100%' }}>
-                    {messages.map((message) => (
+                    {msgs.map((message) => (
                         <div
                             className={
                                 message.from === user.email
@@ -112,7 +65,7 @@ export default function ChatView({ chatId, toUser }) {
                     variant="outlined"
                     fullWidth
                     size="small"
-                    value={message}
+                    value={text}
                     onChange={handleMessageInputChange}
                 />
                 <Button size="large" variant="contained" onClick={sendMessage}>
