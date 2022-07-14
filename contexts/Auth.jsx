@@ -11,14 +11,12 @@ const AuthContext = createContext({
 });
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(null);
     const router = useRouter();
 
     useEffect(() => {
         const email = localStorage.getItem('user');
-        console.log(email);
         if (!!email) login(email);
-        else logout();
     }, []);
 
     const login = async (email) => {
@@ -33,7 +31,7 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         setUser(null);
         localStorage.removeItem('user');
-        if (router.asPath !== '/signup') router.push('/login');
+        router.push('/login');
     };
 
     return (
