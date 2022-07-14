@@ -10,7 +10,7 @@
 }
 
 .textFieldContainer {
-  width: 50%;
+  width: 60%;
   display: flex;
   gap: 1em;
   flex-direction: column;
@@ -20,7 +20,6 @@
 
 .signupHeader {
   color: white;
-  font-size: 3vw;
   text-align: center;
 }
 

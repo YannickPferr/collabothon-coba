@@ -17,27 +17,25 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 70vh;
+  height: 40vw;
   justify-content: space-around;
 }
 
 .header {
   color: white;
-  font-size: 5vw;
   margin-bottom: 25px;
   text-shadow: 5px 5px 5px lightgray;
 }
 
 .roleName {
   color: white;
-  font-size: 3vw;
   margin-bottom: 10px;
   font-family: "Roboto";
   /*text-shadow: 2px 2px 2px skyblue;*/
 }
 
 .buttonBuddy {
-  height: 70vh;
+  height: 40vw;
   background-image: url("../public/mock-images/buddies3.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -56,7 +54,7 @@
 }
 
 .buttonRefugee {
-  height: 70vh;
+  height: 40vw;
   background-image: url("../public/mock-images/questions.png");
   background-repeat: no-repeat;
   background-position: center;
