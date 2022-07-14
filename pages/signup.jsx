@@ -37,7 +37,7 @@ export default function Signup() {
             </div>
 
             <div className={styles.buttonDiv}>
-              <Typography className={styles.roleName}>Buddy</Typography>
+              <Typography className={styles.roleName}>Refugee</Typography>
               <Button
                 fullWidth
                 variant="contained"

@@ -117,12 +117,24 @@ export default function Login() {
           Login
         </Button>
       </div>
-      <Typography variant="subtitle1" display="block" gutterBottom>
-        or
-      </Typography>
-      <Link href="signup" underline="hover">
-        Sign up
-      </Link>
+      <div className={styles.signupDiv}>
+        <Typography
+          variant="h2"
+          display="block"
+          gutterBottom
+          className={styles.signupHeader}
+        >
+          Not have an account yet?
+        </Typography>
+
+        <Link href="signup" underline="hover">
+          <img
+            src={"mock-images/join-us.png"}
+            alt="Join Us Its Free"
+            className={styles.joinUsImage}
+          />
+        </Link>
+      </div>
     </div>
   );
 }

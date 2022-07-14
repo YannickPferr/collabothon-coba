@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Anton&display=swap");
+
 .main {
   min-height: 100vh;
   padding: 4rem 0;
@@ -20,9 +22,24 @@
 .appName {
   color: white;
   font-size: 10vw;
+  font-family: "Anton";
 }
 
 .logo {
   height: 20vh;
   width: 20vw;
+}
+
+.signupDiv {
+  margin-top: 200px;
+}
+
+.signupHeader {
+  color: white;
+  font-size: 3vw;
+  text-align: center;
+}
+
+.joinUsImage {
+  width: 40vw;
 }

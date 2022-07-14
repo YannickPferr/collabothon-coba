@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
 .main {
   min-height: 100vh;
   padding: 4rem 0;
@@ -22,28 +24,53 @@
 .header {
   color: white;
   font-size: 5vw;
+  margin-bottom: 25px;
+  text-shadow: 5px 5px 5px lightgray;
 }
 
 .roleName {
   color: white;
-  font-size: 2vw;
+  font-size: 3vw;
+  margin-bottom: 10px;
+  font-family: "Roboto";
+  /*text-shadow: 2px 2px 2px skyblue;*/
 }
 
 .buttonBuddy {
   height: 70vh;
-  background-image: url("../public/Buddy.svg");
+  background-image: url("../public/mock-images/buddies3.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 25vw;
+  background-size: 35vw;
   vertical-align: text-top;
+  background-color: transparent;
+}
+
+.buttonBuddy:hover {
+  background: rgba(0, 0, 0, 0.15);
+  background-image: url("../public/mock-images/buddies3.png");
+  height: 70vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 35vw;
 }
 
 .buttonRefugee {
   height: 70vh;
-  background-image: url("../public/refugee.svg");
+  background-image: url("../public/mock-images/questions.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 22vw;
+  background-size: 35vw;
+  background-color: transparent;
+}
+
+.buttonRefugee:hover {
+  background: rgba(0, 0, 0, 0.15);
+  background-image: url("../public/mock-images/questions.png");
+  height: 70vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 35vw;
 }
 
 .buttonDiv {
