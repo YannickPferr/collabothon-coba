@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const email = localStorage.getItem('user');
+        console.log(email);
         if (!!email) login(email);
         else logout();
     }, []);
@@ -32,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         setUser(null);
         localStorage.removeItem('user');
-        router.push('/login');
+        if (router.asPath !== '/signup') router.push('/login');
     };
 
     return (

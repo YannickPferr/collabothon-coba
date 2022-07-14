@@ -1,0 +1,23 @@
+.root {
+    min-height: 100vh;
+    padding: 4rem 0;
+    flex: 2;
+    display: flex;
+    gap: 1em;
+    flex-direction: column;
+    align-items: center;
+}
+
+.headline {
+    justify-content: center;
+}
+
+.cards {
+    width: 80%;
+    height: 60vh;
+    margin: 0 auto;
+}
+
+.stepper {
+    background: aquamarine;
+}

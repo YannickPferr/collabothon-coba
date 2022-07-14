@@ -1,0 +1,25 @@
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.textBanner {
+  color: white;
+  font-size: 3vw;
+  text-align: center;
+}
+
+.textLink {
+  color: white;
+  font-size: 2vw;
+  text-align: center;
+}
+
+.fourOhFourImage {
+  width: 40vw;
+}

@@ -1,19 +1,29 @@
 .main {
-    min-height: 100vh;
-    padding: 4rem 0;
-    flex: 1;
-    display: flex;
-    gap: 1em;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .textFieldContainer {
-    width: 50%;
-    display: flex;
-    gap: 1em;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 50%;
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signupHeader {
+  color: white;
+  font-size: 3vw;
+  text-align: center;
+}
+
+.signupImage {
+  height: 18vw;
 }

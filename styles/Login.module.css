@@ -1,18 +1,45 @@
+@import url("https://fonts.googleapis.com/css?family=Anton&display=swap");
+
 .main {
-    min-height: 100vh;
-    padding: 4rem 0;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .textFieldContainer {
-    width: 50%;
-    display: flex;
-    gap: 1em;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 50%;
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.appName {
+  color: white;
+  font-size: 10vw;
+  font-family: "Anton";
+}
+
+.logo {
+  height: 20vh;
+  width: 20vw;
+}
+
+.signupDiv {
+  margin-top: 200px;
+}
+
+.signupHeader {
+  color: white;
+  font-size: 3vw;
+  text-align: center;
+}
+
+.joinUsImage {
+  width: 40vw;
 }
