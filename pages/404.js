@@ -17,14 +17,14 @@ export default function FourOhFour() {
         alt="Page Not Found"
         className={styles.fourOhFourImage}
       />
-      <Link href="signup" underline="hover">
+      <Link href="/" underline="hover">
         <Typography
           variant="h2"
           display="block"
           gutterBottom
           className={styles.textLink}
         >
-          Navigate Back
+          Return to Landing Page
         </Typography>
       </Link>
     </div>
