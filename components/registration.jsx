@@ -104,99 +104,114 @@ export default function Registration({ role = 'Buddy' }) {
             },
         },
     });
-    console.log(role);
+    
+    
+  const textSizingNormal = {
+    fontSize: {
+      lg: 30,
+      md: 20,
+      sm: 15,
+      xs: 15,
+    },
+  };
+
+  const textSizingHeader = {
+    fontSize: {
+      lg: 40,
+      md: 25,
+      sm: 20,
+      xs: 20,
+    },
+  };
+  
     return (
         <div className={styles.main}>
-            <img
-                src={
-                    role.toLocaleLowerCase() === 'buddy'
-                        ? 'mock-images/buddies-superheroes.png'
-                        : 'mock-images/buddies.png'
-                }
-                alt="Sign Up As A Buddy"
-                className={styles.signupImage}
-            />
+      <img
+        src={
+          role.toLocaleLowerCase() === "buddy"
+            ? "mock-images/buddies-superheroes.png"
+            : "mock-images/buddies.png"
+        }
+        alt="Sign Up As A Buddy"
+        className={styles.signupImage}
+      />
 
-            <Typography variant="h2" className={styles.signupHeader}>
-                Sign up as a {role}!
-            </Typography>
-            <div className={styles.textFieldContainer}>
-                <ThemeProvider theme={customTextFieldTheme}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Name"
-                        type="text"
-                        variant="outlined"
-                        error={nameErrorField.length > 0}
-                        helperText={
-                            nameErrorField.length > 0 ? nameErrorField : ''
-                        }
-                        required
-                        fullWidth
-                        value={name}
-                        onChange={handleNameInputChange}
-                        onBlur={validateName}
-                    />
-                </ThemeProvider>
-                <ThemeProvider theme={customTextFieldTheme}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Email"
-                        type="email"
-                        variant="outlined"
-                        error={emailFieldError.length > 0}
-                        helperText={
-                            emailFieldError.length > 0 ? emailFieldError : ''
-                        }
-                        required
-                        fullWidth
-                        value={email}
-                        onChange={handleEmailInputChange}
-                        onBlur={validateEmail}
-                    />
-                </ThemeProvider>
-                <ThemeProvider theme={customTextFieldTheme}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Password"
-                        type="password"
-                        variant="outlined"
-                        required
-                        fullWidth
-                        value={password}
-                        error={passwordFieldError.length > 0}
-                        helperText={
-                            passwordFieldError.length > 0
-                                ? passwordFieldError
-                                : ''
-                        }
-                        onChange={handlePasswordInputChange}
-                        onBlur={validatePassword}
-                    />
-                </ThemeProvider>
-                <ThemeProvider theme={customTextFieldTheme}>
-                    <TextField
-                        id="outlined-basic"
-                        label="Repeat password"
-                        type="password"
-                        variant="outlined"
-                        required
-                        fullWidth
-                        value={repeatPassword}
-                        error={repeatPasswordFieldError.length > 0}
-                        helperText={
-                            repeatPasswordFieldError.length > 0
-                                ? repeatPasswordFieldError
-                                : ''
-                        }
-                        onChange={handleRepeatPasswordInputChange}
-                        onBlur={validateRepeatPassword}
-                    />
-                </ThemeProvider>
-                <Button fullWidth variant="contained" onClick={submit}>
-                    Sign up
-                </Button>
-            </div>
-        </div>
+      <Typography
+        variant="h2"
+        className={styles.signupHeader}
+        sx={textSizingHeader}
+      >
+        Sign up as a {role}!
+      </Typography>
+      <div className={styles.textFieldContainer}>
+        <ThemeProvider theme={customTextFieldTheme}>
+          <TextField
+            id="outlined-basic"
+            label="Name"
+            type="text"
+            variant="outlined"
+            error={nameErrorField.length > 0}
+            helperText={nameErrorField.length > 0 ? nameErrorField : ""}
+            required
+            fullWidth
+            value={name}
+            onChange={handleNameInputChange}
+            onBlur={validateName}
+          />
+        </ThemeProvider>
+        <ThemeProvider theme={customTextFieldTheme}>
+          <TextField
+            id="outlined-basic"
+            label="Email"
+            type="email"
+            variant="outlined"
+            error={emailFieldError.length > 0}
+            helperText={emailFieldError.length > 0 ? emailFieldError : ""}
+            required
+            fullWidth
+            value={email}
+            onChange={handleEmailInputChange}
+            onBlur={validateEmail}
+          />
+        </ThemeProvider>
+        <ThemeProvider theme={customTextFieldTheme}>
+          <TextField
+            id="outlined-basic"
+            label="Password"
+            type="password"
+            variant="outlined"
+            required
+            fullWidth
+            value={password}
+            error={passwordFieldError.length > 0}
+            helperText={passwordFieldError.length > 0 ? passwordFieldError : ""}
+            onChange={handlePasswordInputChange}
+            onBlur={validatePassword}
+          />
+        </ThemeProvider>
+        <ThemeProvider theme={customTextFieldTheme}>
+          <TextField
+            id="outlined-basic"
+            label="Repeat password"
+            type="password"
+            variant="outlined"
+            required
+            fullWidth
+            value={repeatPassword}
+            error={repeatPasswordFieldError.length > 0}
+            helperText={
+              repeatPasswordFieldError.length > 0
+                ? repeatPasswordFieldError
+                : ""
+            }
+            onChange={handleRepeatPasswordInputChange}
+            onBlur={validateRepeatPassword}
+          />
+        </ThemeProvider>
+        <Button fullWidth variant="contained" onClick={submit}>
+          Sign up
+        </Button>
+      </div>
+    </div>
     );
 }

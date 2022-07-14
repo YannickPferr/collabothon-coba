@@ -82,86 +82,97 @@ export default function Login() {
             },
         },
     });
+    
+      const textSizingAppName = {
+    fontSize: {
+      lg: 150,
+      md: 100,
+      sm: 60,
+      xs: 30,
+    },
+  };
+
+  const textSizingHeader = {
+    fontSize: {
+      lg: 60,
+      md: 50,
+      sm: 35,
+      xs: 25,
+    },
+  };
+  
     return (
         <>
             {!loggedIn && (
                 <div className={styles.main}>
-                    <img
-                        src={'White_Notext.svg'}
-                        alt="Logo"
-                        className={styles.logo}
-                    />
-                    <Typography variant="h1" className={styles.appName}>
-                        ReNetwork
-                    </Typography>
-                    <div className={styles.textFieldContainer}>
-                        <ThemeProvider theme={customTextFieldTheme}>
-                            <TextField
-                                id="outlined-basic"
-                                label="Email"
-                                type="email"
-                                variant="outlined"
-                                error={emailFieldError.length > 0}
-                                helperText={
-                                    emailFieldError.length > 0
-                                        ? emailFieldError
-                                        : ''
-                                }
-                                required
-                                fullWidth
-                                value={email}
-                                onChange={handleEmailInputChange}
-                                onBlur={validateEmail}
-                            />
-                        </ThemeProvider>
-                        <ThemeProvider theme={customTextFieldTheme}>
-                            <TextField
-                                id="outlined-basic"
-                                label="Password"
-                                type="password"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                value={password}
-                                error={passwordFieldError.length > 0}
-                                helperText={
-                                    passwordFieldError.length > 0
-                                        ? passwordFieldError
-                                        : ''
-                                }
-                                onChange={handlePasswordInputChange}
-                                onBlur={validatePassword}
-                            />
-                        </ThemeProvider>
-                        <Button
-                            fullWidth
-                            size="large"
-                            variant="contained"
-                            onClick={submit}
-                        >
-                            Login
-                        </Button>
-                    </div>
-                    <div className={styles.signupDiv}>
-                        <Typography
-                            variant="h2"
-                            display="block"
-                            gutterBottom
-                            className={styles.signupHeader}
-                        >
-                            Not have an account yet?
-                        </Typography>
-
-                        <Link href="signup" underline="hover">
-                            <img
-                                src={'mock-images/join-us.png'}
-                                alt="Join Us Its Free"
-                                className={styles.joinUsImage}
-                            />
-                        </Link>
-                    </div>
-                </div>
+      <div className={styles.appLogoImageDiv}>
+        <img src={"White_Notext.svg"} alt="Logo" className={styles.appLogo} />
+      </div>
+      <Typography
+        variant="h1"
+        className={styles.appName}
+        sx={textSizingAppName}
+      >
+        ReNetwork
+      </Typography>
+      <div className={styles.textFieldContainer}>
+        <ThemeProvider theme={customTextFieldTheme}>
+          <TextField
+            id="outlined-basic"
+            label="Email"
+            type="email"
+            variant="outlined"
+            error={emailFieldError.length > 0}
+            helperText={emailFieldError.length > 0 ? emailFieldError : ""}
+            required
+            fullWidth
+            value={email}
+            onChange={handleEmailInputChange}
+            onBlur={validateEmail}
+          />
+        </ThemeProvider>
+        <ThemeProvider theme={customTextFieldTheme}>
+          <TextField
+            id="outlined-basic"
+            label="Password"
+            type="password"
+            variant="outlined"
+            required
+            fullWidth
+            value={password}
+            error={passwordFieldError.length > 0}
+            helperText={passwordFieldError.length > 0 ? passwordFieldError : ""}
+            onChange={handlePasswordInputChange}
+            onBlur={validatePassword}
+          />
+        </ThemeProvider>
+        <Button fullWidth size="large" variant="contained" onClick={submit}>
+          Login
+        </Button>
+      </div>
+      <div className={styles.signupDiv}>
+        <Typography
+          variant="h2"
+          display="block"
+          gutterBottom
+          className={styles.signupHeader}
+          sx={textSizingHeader}
+        >
+          Not have an account yet?
+        </Typography>
+        <div className={styles.joinUsImageDiv}>
+          <Link href="signup" underline="hover">
+            <img
+              src={"mock-images/join-us.png"}
+              alt="Join Us Its Free"
+              className={styles.joinUsImage}
+            />
+          </Link>
+        </div>
+      </div>
+    </div>
             )}
         </>
     );
+
 }

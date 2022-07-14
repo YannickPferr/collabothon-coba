@@ -21,13 +21,18 @@
 
 .appName {
   color: white;
-  font-size: 10vw;
   font-family: "Anton";
 }
 
-.logo {
-  height: 20vh;
-  width: 20vw;
+.appLogoImageDiv {
+  width: 10vw;
+  text-align: center;
+}
+
+.appLogo {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
 }
 
 .signupDiv {
@@ -36,10 +41,17 @@
 
 .signupHeader {
   color: white;
-  font-size: 3vw;
   text-align: center;
 }
 
 .joinUsImage {
-  width: 40vw;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+}
+
+.joinUsImageDiv {
+  width: 60vw;
+  text-align: center;
+  margin: auto;
 }

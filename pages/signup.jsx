@@ -8,16 +8,33 @@ export default function Signup() {
     const [selectedRole, setSelectedRole] = useState('');
     const { loggedIn } = useAuth();
 
+    const handleBuddyClick = async (e) => {
+        e.preventDefault();
+        setSelectedRole('Buddy');
+    };
 
-  const handleBuddyClick = async (e) => {
-    e.preventDefault();
-    setSelectedRole("Buddy");
-  };
+    const handleRefugeeClick = async (e) => {
+        e.preventDefault();
+        setSelectedRole('Refugee');
+    };
 
-  const handleRefugeeClick = async (e) => {
-    e.preventDefault();
-    setSelectedRole("Refugee");
-  };
+    const textSizingNormal = {
+        fontSize: {
+            lg: 30,
+            md: 20,
+            sm: 15,
+            xs: 15,
+        },
+    };
+
+    const textSizingHeader = {
+        fontSize: {
+            lg: 40,
+            md: 25,
+            sm: 20,
+            xs: 20,
+        },
+    };
 
     return (
         <>
@@ -26,12 +43,19 @@ export default function Signup() {
                     <Registration role={selectedRole}></Registration>
                 ) : (
                     <div className={styles.main}>
-                        <Typography variant="h2" className={styles.header}>
+                        <Typography
+                            variant="h2"
+                            className={styles.header}
+                            sx={textSizingHeader}
+                        >
                             Please select a role
                         </Typography>
                         <div className={styles.roleContainer}>
                             <div className={styles.buttonDiv}>
-                                <Typography className={styles.roleName}>
+                                <Typography
+                                    className={styles.roleName}
+                                    sx={textSizingNormal}
+                                >
                                     Buddy
                                 </Typography>
                                 <Button
@@ -43,7 +67,10 @@ export default function Signup() {
                             </div>
 
                             <div className={styles.buttonDiv}>
-                                <Typography className={styles.roleName}>
+                                <Typography
+                                    className={styles.roleName}
+                                    sx={textSizingNormal}
+                                >
                                     Refugee
                                 </Typography>
                                 <Button
@@ -61,5 +88,4 @@ export default function Signup() {
             )}
         </>
     );
-
 }
