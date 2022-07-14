@@ -1,34 +1,46 @@
-import { TextField, Typography, Grid } from "@mui/material"
+import { TextField, Typography, Grid } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import React from "react";
-
+import styles from "../../styles/profile/profileSetup.module.css";
 
 function Description() {
-    const [description, setDescription] = React.useState("");
+  const [description, setDescription] = React.useState("");
 
-    const handleChangeDescription = (event) => {
-        setDescription(event.target.value)
-    }
+  const handleChangeDescription = (event) => {
+    setDescription(event.target.value);
+  };
 
-    return (
-        <Grid container spacing={2}>
-            <Grid item xs={3}>
-                Image
-            </Grid>
-            <Grid item xs={9}>
-                <Typography variant="h2" align="center">
-                    Tell us a bit about yourself
-                </Typography>
-                <TextField
-                    fullWidth
-                    label="Description"
-                    style={{height: "30vh"}}
-                    value={description}
-                    onChange={(e) => handleChangeDescription(e)}
-                />
-            </Grid>
-        </Grid>
-       
-    )
+  return (
+    <Grid container spacing={6}>
+      <Grid item xs={4}>
+        <div className={styles.locationImageContainer}>
+          <img
+            src={"mock-images/buddy-hobbies.png"}
+            alt="Languages"
+            className={styles.profileSetupImage}
+          />
+        </div>
+      </Grid>
+      <Grid item xs={8}>
+        <Typography
+          align="center"
+          variant="h3"
+          className={styles.languageHeader}
+        >
+          Describe yourself in a few words
+        </Typography>
+        <TextField
+          fullWidth
+          label="Description"
+          margin="dense"
+          multiline
+          rows="10"
+          value={description}
+          onChange={(e) => handleChangeDescription(e)}
+        />
+      </Grid>
+    </Grid>
+  );
 }
 
 export default Description;
