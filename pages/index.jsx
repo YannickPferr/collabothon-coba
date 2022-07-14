@@ -8,6 +8,7 @@ import {
     query,
     where,
 } from 'firebase/firestore';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Chat from '../components/Chat/Chat';
 import Footer from '../components/Footer';
@@ -19,7 +20,8 @@ import db from '../firebase.config';
 import styles from '../styles/Index.module.css';
 
 export default function MainPage(props) {
-    const { user, loggedIn } = useAuth();
+    const { loggedIn } = useAuth();
+    const router = useRouter();
     const [selectedPage, setSelectedPage] = useState('Network');
 
     const [conversations, setConversations] = useState(props.conversations);
@@ -53,9 +55,13 @@ export default function MainPage(props) {
         return () => unsub();
     }, []);
 
+    useEffect(() => {
+        !loggedIn && router.push('/login');
+    }, [loggedIn]);
+
     return (
         <>
-            {loggedIn ? (
+            {loggedIn && (
                 <div style={{ height: '100vh' }}>
                     <ResponsiveAppBar
                         selectPage={(page) => setSelectedPage(page)}
@@ -65,8 +71,6 @@ export default function MainPage(props) {
                     </div>
                     <Footer></Footer>
                 </div>
-            ) : (
-                <></>
             )}
         </>
     );
