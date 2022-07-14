@@ -1,7 +1,10 @@
 import { Button, Link, TextField, Typography } from "@mui/material";
 import bcrypt from "bcryptjs";
 import { doc, getDoc } from "firebase/firestore";
+import { useRouter } from 'next/router';
 import { useContext, useState } from "react";
+import { useAlerts } from '../contexts/Alerts';
+import { useAuth } from '../contexts/Auth';
 import db from "../firebase.config";
 import styles from "../styles/Login.module.css";
 import { AlertContext } from "../utils/AlertsContext";
@@ -10,13 +13,16 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 const validEmailRegex =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default function Login() {
-  const { addAlert } = useContext(AlertContext);
-  const [email, setEmail] = useState("");
-  const [emailFieldError, setEmailFieldError] = useState("");
+    const { loggedIn, login } = useAuth();
+    const { addAlert } = useAlerts();
+    const router = useRouter();
+
+    const [email, setEmail] = useState('');
+    const [emailFieldError, setEmailFieldError] = useState('');
+
 
   const [password, setPassword] = useState("");
   const [passwordFieldError, setPasswordFieldError] = useState("");
-
   const [success, setSuccess] = useState(false);
 
   const isInputValid = () => {
@@ -32,16 +38,20 @@ export default function Login() {
       const docRef = doc(db, "user", email);
       const user = await getDoc(docRef);
 
+
       if (user.exists()) {
-        const hashedPassword = await user.get("password");
-        const isCorrectpassword = bcrypt.compareSync(password, hashedPassword);
-        if (isCorrectpassword) {
-          addAlert("success", "Sucessfully logged in");
-          //login();
-        } else setPasswordFieldError("Incorrect password");
-      } else setEmailFieldError("This user does not exist");
-    }
-  };
+          const hashedPassword = await user.get('password');
+          const isCorrectpassword = bcrypt.compareSync(
+              password,
+              hashedPassword
+          );
+          if (isCorrectpassword) {
+              addAlert('success', 'Sucessfully logged in');
+              login(email);
+          } else setPasswordFieldError('Incorrect password');
+      } else setEmailFieldError('This user does not exist');
+  }
+};
 
   const handleEmailInputChange = (e) => {
     setEmail(e.target.value);
@@ -62,7 +72,8 @@ export default function Login() {
     else setPasswordFieldError("Please enter a valid password");
   };
 
-  const customTextFieldTheme = createTheme({
+
+const customTextFieldTheme = createTheme({
     components: {
       // Inputs
       MuiOutlinedInput: {
@@ -75,9 +86,10 @@ export default function Login() {
       },
     },
   });
-
-  return (
-    <div className={styles.main}>
+    return (
+        <>
+            {!loggedIn && (
+                <div className={styles.main}>
       <img src={"White_Notext.svg"} alt="Logo" className={styles.logo} />
       <Typography variant="h1" className={styles.appName}>
         ReNetwork
@@ -136,5 +148,8 @@ export default function Login() {
         </Link>
       </div>
     </div>
-  );
+            )}
+        </>
+    );
+
 }

@@ -1,10 +1,13 @@
-import { Button, Typography } from "@mui/material";
-import { useState } from "react";
-import Registration from "../components/Registration";
-import styles from "../styles/Signup.module.css";
+import { Button, Typography } from '@mui/material';
+import { useState } from 'react';
+import Registration from '../components/Registration';
+import { useAuth } from '../contexts/Auth';
+import styles from '../styles/Signup.module.css';
 
 export default function Signup() {
-  const [selectedRole, setSelectedRole] = useState("");
+    const [selectedRole, setSelectedRole] = useState('');
+    const { loggedIn } = useAuth();
+
 
   const handleBuddyClick = async (e) => {
     e.preventDefault();
@@ -16,12 +19,13 @@ export default function Signup() {
     setSelectedRole("Refugee");
   };
 
-  return (
-    <>
-      {selectedRole ? (
-        <Registration role={selectedRole}></Registration>
-      ) : (
-        <div className={styles.main}>
+    return (
+        <>
+            {!loggedIn ? (
+                selectedRole ? (
+                    <Registration role={selectedRole}></Registration>
+                ) : (
+                     <div className={styles.main}>
           <Typography variant="h2" className={styles.header}>
             Please select a role
           </Typography>
@@ -47,7 +51,11 @@ export default function Signup() {
             </div>
           </div>
         </div>
-      )}
-    </>
-  );
+                )
+            ) : (
+                <></>
+            )}
+        </>
+    );
+
 }
