@@ -7,10 +7,22 @@
 .chatView {
     display: flex;
     justify-content: center;
+    align-items: end;
+    width: 100%;
+    column-gap: 10px;
+    row-gap: 20px;
+    height: calc(100vh - 130px);
+    overflow: auto;
+}
+
+.sendArea {
+    display: flex;
+    justify-content: center;
     align-items: center;
     width: 100%;
     column-gap: 10px;
     row-gap: 20px;
+    margin-top: 15px;
 }
 
 .leftContainer {
@@ -21,7 +33,7 @@
 }
 
 .chatBubbleLeft {
-    width: 50%;
+    width: 50% !important;
     background-color: greenyellow;
     border-radius: 20px;
 }
@@ -38,7 +50,7 @@
 }
 
 .chatBubbleRight {
-    width: 50%;
+    width: 50% !important;
     background-color: #1976d2;
     border-radius: 20px;
 }

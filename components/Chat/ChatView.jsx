@@ -1,3 +1,4 @@
+import SendIcon from '@mui/icons-material/Send';
 import { Button, List, ListItem, ListItemText, TextField } from '@mui/material';
 import { addDoc, collection, Timestamp } from 'firebase/firestore';
 import { useState } from 'react';
@@ -27,37 +28,39 @@ export default function ChatView({ chatId, toUser, msgs }) {
     return (
         <div className={styles.container}>
             <div className={styles.chatView}>
-                <List sx={{ width: '100%' }}>
-                    {msgs.map((message) => (
-                        <div
-                            className={
-                                message.from === user.email
-                                    ? styles.rightContainer
-                                    : styles.leftContainer
-                            }
-                        >
-                            <ListItem
-                                key={message.time}
+                <List sx={{ width: '100%', height: '100%' }}>
+                    {msgs.map((message) => {
+                        return (
+                            <div
                                 className={
                                     message.from === user.email
-                                        ? styles.chatBubbleRight
-                                        : styles.chatBubbleLeft
+                                        ? styles.rightContainer
+                                        : styles.leftContainer
                                 }
                             >
-                                <ListItemText
+                                <ListItem
+                                    key={message.time}
                                     className={
                                         message.from === user.email
-                                            ? styles.textRight
-                                            : styles.textLeft
+                                            ? styles.chatBubbleRight
+                                            : styles.chatBubbleLeft
                                     }
-                                    primary={message.message}
-                                />
-                            </ListItem>
-                        </div>
-                    ))}
+                                >
+                                    <ListItemText
+                                        className={
+                                            message.from === user.email
+                                                ? styles.textRight
+                                                : styles.textLeft
+                                        }
+                                        primary={message.message}
+                                    />
+                                </ListItem>
+                            </div>
+                        );
+                    })}
                 </List>
             </div>
-            <div className={styles.chatView}>
+            <div className={styles.sendArea}>
                 <TextField
                     id="outlined-basic"
                     label="Write a message"
@@ -69,7 +72,7 @@ export default function ChatView({ chatId, toUser, msgs }) {
                     onChange={handleMessageInputChange}
                 />
                 <Button size="large" variant="contained" onClick={sendMessage}>
-                    Send
+                    <SendIcon />
                 </Button>
             </div>
         </div>

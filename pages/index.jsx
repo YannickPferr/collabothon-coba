@@ -8,22 +8,26 @@ import {
     query,
     where,
 } from 'firebase/firestore';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Chat from '../components/Chat/Chat';
+import Footer from '../components/Footer';
 import Forum from '../components/Forum';
 import Network from '../components/Network';
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
 import { useAuth } from '../contexts/Auth';
 import db from '../firebase.config';
+import styles from '../styles/Index.module.css';
 
 export default function MainPage(props) {
-    const { user, loggedIn } = useAuth();
+    const { loggedIn } = useAuth();
+    const router = useRouter();
     const [selectedPage, setSelectedPage] = useState('Network');
 
     const [conversations, setConversations] = useState(props.conversations);
 
     const components = {
-        Network: <Network />,
+        Network: <Network matchInfo={props.network} />,
         Forum: <Forum />,
         Chat: <Chat conversations={conversations} />,
     };
@@ -31,39 +35,42 @@ export default function MainPage(props) {
     useEffect(() => {
         const unsub = onSnapshot(collection(db, 'message'), (doc) => {
             const convCopy = JSON.parse(JSON.stringify(conversations));
-            const newMessages = [];
-            let from = '';
-            let to = '';
-            let conv = '';
-            doc.docs.forEach((change) => {
-                const changedData = change.data();
-                newMessages.push(changedData);
-                from = changedData.from;
-                to = changedData.to;
-                conv = changedData.conversation;
+            doc.docChanges().forEach((change) => {
+                const changedData = change.doc.data();
+                convCopy[changedData.from]
+                    .find(
+                        (conversation) =>
+                            conversation.chatId === changedData.conversation
+                    )
+                    .messages?.push(changedData);
+                convCopy[changedData.to]
+                    .find(
+                        (conversation) =>
+                            conversation.chatId === changedData.conversation
+                    )
+                    .messages?.push(changedData);
             });
-            convCopy[from].find(
-                (conversation) => conversation.chatId === conv
-            ).messages = newMessages;
-            convCopy[to].find(
-                (conversation) => conversation.chatId === conv
-            ).messages = newMessages;
             setConversations(convCopy);
         });
         return () => unsub();
     }, []);
 
+    useEffect(() => {
+        !loggedIn && router.push('/login');
+    }, [loggedIn]);
+
     return (
         <>
-            {loggedIn ? (
+            {loggedIn && (
                 <div style={{ height: '100vh' }}>
                     <ResponsiveAppBar
                         selectPage={(page) => setSelectedPage(page)}
                     />
-                    <div>{components[selectedPage]}</div>
+                    <div className={styles.container}>
+                        {components[selectedPage]}
+                    </div>
+                    <Footer></Footer>
                 </div>
-            ) : (
-                <></>
             )}
         </>
     );
@@ -90,6 +97,7 @@ const fetchAllMessages = async (chatId) => {
     });
     return allMessages;
 };
+
 const fetchAllConversations = async () => {
     const conversations = {};
     const conversationsRef = collection(db, 'conversation');
@@ -128,12 +136,71 @@ const fetchAllConversations = async () => {
     return conversations;
 };
 
+const fetchAllSkills = async (email) => {
+    const docRef = doc(db, 'user', email);
+    const user = await getDoc(docRef);
+    const skills = await user.get('skill');
+    return skills;
+};
+
+const fetchAllLanguages = async (email) => {
+    const docRef = doc(db, 'user', email);
+    const user = await getDoc(docRef);
+    const languages = await user.get('languageId');
+    return languages;
+};
+
+const fetchAllMatchInfos = async () => {
+    const matchInfo = {};
+    const conversationsRef = collection(db, 'conversation');
+    const relevantConversations = await getDocs(conversationsRef);
+    await Promise.all(
+        relevantConversations.docs.map(async (conversation) => {
+            // doc.data() is never undefined for query doc snapshots
+            const convData = conversation.data();
+            const docRefBuddy = doc(db, 'user', convData.buddy);
+            const buddyDoc = await getDoc(docRefBuddy);
+            const buddyData = buddyDoc.data();
+
+            const docRefMigrant = doc(db, 'user', convData.migrant);
+            const migrantDoc = await getDoc(docRefMigrant);
+            const migrantData = migrantDoc.data();
+
+            const buddySkills = await fetchAllSkills(buddyData.email);
+            const migrantSkills = await fetchAllSkills(migrantData.email);
+
+            const buddyLanguages = await fetchAllLanguages(buddyData.email);
+            const migrantLanguages = await fetchAllLanguages(migrantData.email);
+
+            if (!matchInfo[migrantData.email])
+                matchInfo[migrantData.email] = [];
+            matchInfo[migrantData.email].push({
+                name: buddyData.name,
+                email: buddyData.email,
+                skills: buddySkills,
+                languages: buddyLanguages,
+            });
+
+            if (!matchInfo[buddyData.email]) matchInfo[buddyData.email] = [];
+            matchInfo[buddyData.email].push({
+                name: migrantData.name,
+                email: migrantData.email,
+                skills: migrantSkills,
+                languages: migrantLanguages,
+            });
+        })
+    );
+    return matchInfo;
+};
+
 export async function getStaticProps() {
     const conversations = await fetchAllConversations();
+    const network = await fetchAllMatchInfos();
     console.log(JSON.parse(JSON.stringify(conversations)));
     return {
         props: {
             conversations: JSON.parse(JSON.stringify(conversations)),
+            network: JSON.parse(JSON.stringify(network)),
         },
 
         revalidate: 5,

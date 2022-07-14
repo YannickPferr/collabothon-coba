@@ -17,24 +17,24 @@ export default function Signup() {
         e.preventDefault();
         setSelectedRole('Refugee');
     };
-    
-      const textSizingNormal = {
-    fontSize: {
-      lg: 30,
-      md: 20,
-      sm: 15,
-      xs: 15,
-    },
-  };
 
-  const textSizingHeader = {
-    fontSize: {
-      lg: 40,
-      md: 25,
-      sm: 20,
-      xs: 20,
-    },
-  };
+    const textSizingNormal = {
+        fontSize: {
+            lg: 30,
+            md: 20,
+            sm: 15,
+            xs: 15,
+        },
+    };
+
+    const textSizingHeader = {
+        fontSize: {
+            lg: 40,
+            md: 25,
+            sm: 20,
+            xs: 20,
+        },
+    };
 
     return (
         <>
@@ -43,39 +43,45 @@ export default function Signup() {
                     <Registration role={selectedRole}></Registration>
                 ) : (
                     <div className={styles.main}>
-          <Typography
-            variant="h2"
-            className={styles.header}
-            sx={textSizingHeader}
-          >
-            Please select a role
-          </Typography>
-          <div className={styles.roleContainer}>
-            <div className={styles.buttonDiv}>
-              <Typography className={styles.roleName} sx={textSizingNormal}>
-                Buddy
-              </Typography>
-              <Button
-                fullWidth
-                variant="contained"
-                className={styles.buttonBuddy}
-                onClick={handleBuddyClick}
-              ></Button>
-            </div>
+                        <Typography
+                            variant="h2"
+                            className={styles.header}
+                            sx={textSizingHeader}
+                        >
+                            Please select a role
+                        </Typography>
+                        <div className={styles.roleContainer}>
+                            <div className={styles.buttonDiv}>
+                                <Typography
+                                    className={styles.roleName}
+                                    sx={textSizingNormal}
+                                >
+                                    Buddy
+                                </Typography>
+                                <Button
+                                    fullWidth
+                                    variant="contained"
+                                    className={styles.buttonBuddy}
+                                    onClick={handleBuddyClick}
+                                ></Button>
+                            </div>
 
-            <div className={styles.buttonDiv}>
-              <Typography className={styles.roleName} sx={textSizingNormal}>
-                Refugee
-              </Typography>
-              <Button
-                fullWidth
-                variant="contained"
-                className={styles.buttonRefugee}
-                onClick={handleRefugeeClick}
-              ></Button>
-            </div>
-          </div>
-        </div>
+                            <div className={styles.buttonDiv}>
+                                <Typography
+                                    className={styles.roleName}
+                                    sx={textSizingNormal}
+                                >
+                                    Refugee
+                                </Typography>
+                                <Button
+                                    fullWidth
+                                    variant="contained"
+                                    className={styles.buttonRefugee}
+                                    onClick={handleRefugeeClick}
+                                ></Button>
+                            </div>
+                        </div>
+                    </div>
                 )
             ) : (
                 <></>
