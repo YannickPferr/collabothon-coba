@@ -11,11 +11,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 import { useAuth } from '../contexts/Auth';
 
 const ResponsiveAppBar = ({ selectPage }) => {
     const { user } = useAuth();
+    const router = useRouter();
     const pages = ['Network', 'Forum', 'Chat'];
     const settings = [
         { name: 'Profile', onClick: () => {} },
@@ -57,7 +59,7 @@ const ResponsiveAppBar = ({ selectPage }) => {
                         variant="h6"
                         noWrap
                         component="a"
-                        href="/"
+                        onClick={() => router.push('/')}
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -68,7 +70,7 @@ const ResponsiveAppBar = ({ selectPage }) => {
                             textDecoration: 'none',
                         }}
                     >
-                        Re-Network
+                        ReNetwork
                     </Typography>
 
                     <Box
@@ -136,7 +138,7 @@ const ResponsiveAppBar = ({ selectPage }) => {
                             textDecoration: 'none',
                         }}
                     >
-                        LOGO
+                        ReNetwork
                     </Typography>
                     <Box
                         sx={{
