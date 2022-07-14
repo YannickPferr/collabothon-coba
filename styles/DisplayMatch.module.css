@@ -1,0 +1,32 @@
+.cardContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    margin-top: 50px;
+    height: 40vh
+}
+
+.card {
+    width: 25%;
+}
+
+.infoCardContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.infoCard {
+    width: 88%
+}
+
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20vh
+}
+
+.continueButton {
+
+}

@@ -1,0 +1,40 @@
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+
+.textHeader {
+  color: white;
+  /*font-size: 3vw;*/
+  text-align: center;
+}
+
+.text {
+  color: black;
+  /*font-size: 1vw;*/
+  text-align: justify;
+  margin-left: 5vw;
+}
+
+.textDiv {
+  margin-bottom: 40px;
+}
+
+.footerImage {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+}
+
+.footerImageDiv {
+  width: 50vw;
+  text-align: center;
+  margin-bottom: 25px;
+}
