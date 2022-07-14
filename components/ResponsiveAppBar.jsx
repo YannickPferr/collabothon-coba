@@ -15,6 +15,7 @@ import * as React from 'react';
 import { useAuth } from '../contexts/Auth';
 
 const ResponsiveAppBar = ({ selectPage }) => {
+    const { user } = useAuth();
     const pages = ['Network', 'Forum', 'Chat'];
     const settings = [
         { name: 'Profile', onClick: () => {} },
@@ -160,7 +161,7 @@ const ResponsiveAppBar = ({ selectPage }) => {
                                 sx={{ p: 0 }}
                             >
                                 <Avatar
-                                    alt="Remy Sharp"
+                                    alt={user.name}
                                     src="/static/images/avatar/2.jpg"
                                 />
                             </IconButton>
