@@ -38,7 +38,7 @@ function Location() {
     const [howCanYouHelpSelect, setHowCanYouHelpSelect] = React.useState("Online")
 
 
-    const { isLoaded } = useJsApiLoader({id: 'google-maps-script', googleMapsApiKey: "AIzaSyBuA4bIVmp5ZBYDuY0n5qSr5ML8agqnQyI"})
+    const { isLoaded } = useJsApiLoader({id: 'google-maps-script', googleMapsApiKey: "API_KEY_GOOGLE_MAPS"})
 
     const onLoad = React.useCallback(function callback(map) {
         map.setZoom(11)
