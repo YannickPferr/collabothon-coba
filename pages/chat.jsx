@@ -1,44 +1,40 @@
-import { Typography } from "@mui/material";
-import List from "@mui/material/List";
+import { Typography } from '@mui/material';
+import List from '@mui/material/List';
 import {
     collection,
     doc,
     getDoc,
     getDocs,
-    onSnapshot
-} from "firebase/firestore";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import ChatView from "../components/Chat/ChatView";
-import MessagePreview from "../components/Chat/MessagePreview";
-import Footer from "../components/Footer";
-import LoadingIndicator from "../components/LoadingIndicator";
-import ResponsiveAppBar from "../components/ResponsiveAppBar";
-import { useAuth } from "../contexts/Auth";
-import db from "../firebase.config";
-import styles from "../styles/Chat.module.css";
+    onSnapshot,
+} from 'firebase/firestore';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import ChatView from '../components/Chat/ChatView';
+import MessagePreview from '../components/Chat/MessagePreview';
+import Footer from '../components/Footer';
+import LoadingIndicator from '../components/LoadingIndicator';
+import ResponsiveAppBar from '../components/ResponsiveAppBar';
+import { useAuth } from '../contexts/Auth';
+import db from '../firebase.config';
+import styles from '../styles/Chat.module.css';
 
 export default function Chat(props) {
-<<<<<<< HEAD
     const { user, loggedIn, loading } = useAuth();
     const router = useRouter();
-=======
-  const { user, loggedIn } = useAuth();
-  const router = useRouter();
->>>>>>> a6f4ce7ea78279c3ddfa79de4cc3fcef4291e426
 
-  const [update, setUpdate] = useState(false);
-  const [conversations, setConversations] = useState(props.conversations);
-  const [selectedChat, setSelectedChat] = useState(0);
+    const [update, setUpdate] = useState(false);
+    const [conversations, setConversations] = useState(props.conversations);
+    const [selectedChat, setSelectedChat] = useState(0);
 
-  useEffect(() => {
-    if (router.query.chatId && user)
-      setSelectedChat(
-        conversations[user.email].findIndex(
-          (conversation) => conversation.chatId === router.query.chatId
-        )
-      );
-  }, [router.query.chatId]);
+    useEffect(() => {
+        if (router.query.chatId && user)
+            setSelectedChat(
+                conversations[user.email].findIndex(
+                    (conversation) =>
+                        conversation.chatId === router.query.chatId
+                )
+            );
+    }, [router.query.chatId]);
 
     useEffect(() => {
         if (update) {
@@ -47,27 +43,29 @@ export default function Chat(props) {
         }
     }, [update]);
 
-  useEffect(() => {
-    const unsub = onSnapshot(collection(db, "message"), (doc) => {
-      const newMessages = [];
-      doc.docChanges().forEach((change) => {
-        const changedData = change.doc.data();
-        props.conversations[changedData.from]
-          .find(
-            (conversation) => conversation.chatId === changedData.conversation
-          )
-          .messages?.push(changedData);
+    useEffect(() => {
+        const unsub = onSnapshot(collection(db, 'message'), (doc) => {
+            const newMessages = [];
+            doc.docChanges().forEach((change) => {
+                const changedData = change.doc.data();
+                props.conversations[changedData.from]
+                    .find(
+                        (conversation) =>
+                            conversation.chatId === changedData.conversation
+                    )
+                    .messages?.push(changedData);
 
-        props.conversations[changedData.to]
-          .find(
-            (conversation) => conversation.chatId === changedData.conversation
-          )
-          .messages?.push(changedData);
-      });
-      setUpdate(true);
-    });
-    return () => unsub();
-  }, []);
+                props.conversations[changedData.to]
+                    .find(
+                        (conversation) =>
+                            conversation.chatId === changedData.conversation
+                    )
+                    .messages?.push(changedData);
+            });
+            setUpdate(true);
+        });
+        return () => unsub();
+    }, []);
 
     useEffect(() => {
         console.log(loading + ' ' + loggedIn);
@@ -136,45 +134,46 @@ export default function Chat(props) {
 }
 
 const fetchAllConversations = async () => {
-  const conversations = {};
-  const conversationsRef = collection(db, "conversation");
-  const relevantConversations = await getDocs(conversationsRef);
-  await Promise.all(
-    relevantConversations.docs.map(async (conversation) => {
-      // doc.data() is never undefined for query doc snapshots
-      const convData = conversation.data();
-      const docRefBuddy = doc(db, "user", convData.buddy);
-      const buddyDoc = await getDoc(docRefBuddy);
-      const buddyData = buddyDoc.data();
+    const conversations = {};
+    const conversationsRef = collection(db, 'conversation');
+    const relevantConversations = await getDocs(conversationsRef);
+    await Promise.all(
+        relevantConversations.docs.map(async (conversation) => {
+            // doc.data() is never undefined for query doc snapshots
+            const convData = conversation.data();
+            const docRefBuddy = doc(db, 'user', convData.buddy);
+            const buddyDoc = await getDoc(docRefBuddy);
+            const buddyData = buddyDoc.data();
 
-      const docRefMigrant = doc(db, "user", convData.migrant);
-      const migrantDoc = await getDoc(docRefMigrant);
-      const migrantData = migrantDoc.data();
+            const docRefMigrant = doc(db, 'user', convData.migrant);
+            const migrantDoc = await getDoc(docRefMigrant);
+            const migrantData = migrantDoc.data();
 
-      if (!conversations[migrantData.email])
-        conversations[migrantData.email] = [];
-      conversations[migrantData.email].push({
-        chatId: conversation.id,
-        toUser: { email: buddyData.email, name: buddyData.name },
-        messages: [],
-      });
+            if (!conversations[migrantData.email])
+                conversations[migrantData.email] = [];
+            conversations[migrantData.email].push({
+                chatId: conversation.id,
+                toUser: { email: buddyData.email, name: buddyData.name },
+                messages: [],
+            });
 
-      if (!conversations[buddyData.email]) conversations[buddyData.email] = [];
-      conversations[buddyData.email].push({
-        chatId: conversation.id,
-        toUser: { email: migrantData.email, name: migrantData.name },
-        messages: [],
-      });
-    })
-  );
-  return conversations;
+            if (!conversations[buddyData.email])
+                conversations[buddyData.email] = [];
+            conversations[buddyData.email].push({
+                chatId: conversation.id,
+                toUser: { email: migrantData.email, name: migrantData.name },
+                messages: [],
+            });
+        })
+    );
+    return conversations;
 };
 
 export async function getStaticProps() {
-  const conversations = await fetchAllConversations();
-  return {
-    props: {
-      conversations: JSON.parse(JSON.stringify(conversations)),
-    },
-  };
+    const conversations = await fetchAllConversations();
+    return {
+        props: {
+            conversations: JSON.parse(JSON.stringify(conversations)),
+        },
+    };
 }
