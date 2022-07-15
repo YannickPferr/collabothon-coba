@@ -67,7 +67,7 @@ function WelcomePage() {
         index={activeStep}
         onChangeIndex={handleStepChange}
         enableMouseEvents
-        interval={4000}
+        interval={6000}
       >
         {steps.map((step, index) => (
           <div className={styles.cards} key={index}>
