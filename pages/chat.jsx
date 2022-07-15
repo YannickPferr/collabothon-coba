@@ -125,7 +125,6 @@ export default function Chat(props) {
                             )}
                         </div>
                     </div>
-                    <Footer></Footer>
                 </div>
             )}
         </>
