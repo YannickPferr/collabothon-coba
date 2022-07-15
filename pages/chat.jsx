@@ -14,7 +14,6 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import ChatView from '../components/Chat/ChatView';
 import MessagePreview from '../components/Chat/MessagePreview';
-import Footer from '../components/Footer';
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
 import { useAuth } from '../contexts/Auth';
 import db from '../firebase.config';
@@ -76,7 +75,7 @@ export default function Chat(props) {
     return (
         <>
             {loggedIn && (
-                <div style={{ height: '100vh' }}>
+                <div>
                     <ResponsiveAppBar />
                     <div className={styles.container}>
                         <div className={styles.chat}>

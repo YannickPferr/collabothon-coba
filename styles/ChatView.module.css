@@ -11,7 +11,7 @@
     width: 100%;
     column-gap: 10px;
     row-gap: 20px;
-    height: calc(100vh - 130px);
+    height: calc(100vh - 105px);
     overflow: auto;
     /* Hide scrollbar */
     -ms-overflow-style: none; /* IE and Edge */
