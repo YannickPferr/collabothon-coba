@@ -1,13 +1,13 @@
 .container {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 105px);
+    height: calc(100vh - 130px);
     padding: 1em;
     overflow: auto;
 }
 
 .main {
-    padding: 4rem 0;
+    padding: 1rem 0;
     flex: 1;
     display: flex;
     gap: 1em;
@@ -21,4 +21,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+.buttonContainer {
+    align-items: flex-start;
+    display: flex;
+    justify-content: center;
+    height: 90px;
+}
+
+.continueButton {
+    background-color: aquamarine;
 }
