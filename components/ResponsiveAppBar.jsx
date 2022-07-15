@@ -15,10 +15,13 @@ import { useRouter } from 'next/router';
 import * as React from 'react';
 import { useAuth } from '../contexts/Auth';
 
-const ResponsiveAppBar = ({ selectPage }) => {
+const ResponsiveAppBar = () => {
     const { user } = useAuth();
     const router = useRouter();
-    const pages = ['Network', 'Forum', 'Chat'];
+    const pages = [
+        { name: 'Network', route: '/network' },
+        { name: 'Chat', route: '/chat' },
+    ];
     const settings = [
         { name: 'Profile', onClick: () => { } },
         { name: 'Account Settings', onClick: () => { } },
@@ -109,11 +112,11 @@ const ResponsiveAppBar = ({ selectPage }) => {
                         >
                             {pages.map((page) => (
                                 <MenuItem
-                                    key={page}
-                                    onClick={() => selectPage(page)}
+                                    key={page.name}
+                                    onClick={() => router.push(page.route)}
                                 >
                                     <Typography textAlign="center">
-                                        {page}
+                                        {page.name}
                                     </Typography>
                                 </MenuItem>
                             ))}
@@ -148,11 +151,11 @@ const ResponsiveAppBar = ({ selectPage }) => {
                     >
                         {pages.map((page) => (
                             <Button
-                                key={page}
-                                onClick={() => selectPage(page)}
+                                key={page.name}
+                                onClick={() => router.push(page.route)}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {page}
+                                {page.name}
                             </Button>
                         ))}
                     </Box>

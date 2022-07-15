@@ -8,23 +8,19 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import { red } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
-import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+import { useRouter } from 'next/router';
 
-const ExpandMore = styled((props) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-    }),
-}));
-
-export default function RecipeReviewCard({ name, email, skills, languages }) {
+export default function NetworkCard({
+    name,
+    email,
+    skills,
+    languages,
+    chatId,
+}) {
+    console.log(chatId);
+    const router = useRouter();
     const fullname = name.split(' ');
-    console.log(fullname);
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardHeader
@@ -49,14 +45,25 @@ export default function RecipeReviewCard({ name, email, skills, languages }) {
                 alt="Paella dish"
             />
             <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                    This impressive paella is a perfect party dish and a fun
-                    meal to cook together with your guests. Add 1 cup of frozen
-                    peas along with the mussels, if you like.
-                </Typography>
+                <div style={{ display: 'flex', gap: '1em' }}>
+                    <Typography variant="body2" color="text.secondary">
+                        Skills
+                        {skills && skills.map((skill) => <li>{skill}</li>)}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        Languages
+                        {languages &&
+                            languages.map((language) => <li>{language}</li>)}
+                    </Typography>
+                </div>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
+                <IconButton
+                    aria-label="go to chat"
+                    onClick={() =>
+                        router.push({ pathname: '/chat', query: { chatId } })
+                    }
+                >
                     <SendIcon />
                 </IconButton>
             </CardActions>

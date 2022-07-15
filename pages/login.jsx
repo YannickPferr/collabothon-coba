@@ -21,12 +21,11 @@ export default function Login() {
   const { addAlert } = useAlerts();
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [emailFieldError, setEmailFieldError] = useState("");
+  const [email, setEmail] = useState('');
+  const [emailFieldError, setEmailFieldError] = useState('');
 
-  const [password, setPassword] = useState("");
-  const [passwordFieldError, setPasswordFieldError] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordFieldError, setPasswordFieldError] = useState('');
 
   const isInputValid = () => {
     const isEmailValid = emailFieldError.length === 0;
@@ -38,17 +37,20 @@ export default function Login() {
     e.preventDefault();
     const hashedPassword = bcrypt.hashSync(password, 10);
     if (isInputValid()) {
-      const docRef = doc(db, "user", email);
+      const docRef = doc(db, 'user', email);
       const user = await getDoc(docRef);
 
       if (user.exists()) {
-        const hashedPassword = await user.get("password");
-        const isCorrectpassword = bcrypt.compareSync(password, hashedPassword);
+        const hashedPassword = await user.get('password');
+        const isCorrectpassword = bcrypt.compareSync(
+          password,
+          hashedPassword
+        );
         if (isCorrectpassword) {
-          addAlert("success", "Sucessfully logged in");
+          addAlert('success', 'Sucessfully logged in');
           login(email);
-        } else setPasswordFieldError("Incorrect password");
-      } else setEmailFieldError("This user does not exist");
+        } else setPasswordFieldError('Incorrect password');
+      } else setEmailFieldError('This user does not exist');
     }
   };
 
@@ -58,8 +60,8 @@ export default function Login() {
 
   const validateEmail = () => {
     //validate email
-    if (email.match(validEmailRegex)) setEmailFieldError("");
-    else setEmailFieldError("Please enter a valid email");
+    if (email.match(validEmailRegex)) setEmailFieldError('');
+    else setEmailFieldError('Please enter a valid email');
   };
 
   const handlePasswordInputChange = (e) => {
@@ -67,8 +69,8 @@ export default function Login() {
   };
 
   const validatePassword = () => {
-    if (password.length > 0) setPasswordFieldError("");
-    else setPasswordFieldError("Please enter a valid password");
+    if (password.length > 0) setPasswordFieldError('');
+    else setPasswordFieldError('Please enter a valid password');
   };
 
   const customTextFieldTheme = createTheme({
@@ -77,7 +79,7 @@ export default function Login() {
       MuiOutlinedInput: {
         styleOverrides: {
           root: {
-            backgroundColor: "white",
+            backgroundColor: 'white',
             opacity: 0.8,
           },
         },
