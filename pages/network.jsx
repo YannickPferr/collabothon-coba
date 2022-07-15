@@ -38,7 +38,6 @@ export default function Network(props) {
                             ))}
                         </div>
                     </div>
-                    <Footer></Footer>
                 </div>
             )}
         </>

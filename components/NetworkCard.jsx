@@ -1,4 +1,3 @@
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import SendIcon from '@mui/icons-material/Send';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
@@ -10,6 +9,8 @@ import { red } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/router';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import { Divider, Tooltip } from '@mui/material';
 
 export default function NetworkCard({
     name,
@@ -22,7 +23,7 @@ export default function NetworkCard({
     const router = useRouter();
     const fullname = name.split(' ');
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ width: 250 }}>
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -31,9 +32,11 @@ export default function NetworkCard({
                     </Avatar>
                 }
                 action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
+                    <Tooltip title="Verified since 2018!" placement='top' arrow>
+                        <IconButton>
+                            <VerifiedUserIcon />
+                        </IconButton>
+                    </Tooltip>
                 }
                 title={name}
                 subheader={email}
@@ -57,6 +60,7 @@ export default function NetworkCard({
                     </Typography>
                 </div>
             </CardContent>
+            <Divider />
             <CardActions disableSpacing>
                 <IconButton
                     aria-label="go to chat"
