@@ -1,9 +1,9 @@
-import { Button, Link, Typography } from "@mui/material";
+import { Button, Link, Typography, Icon } from "@mui/material";
 import { useRouter } from "next/router";
 import styles from "../styles/footerPage.module.css";
 
 export default function donationPage() {
-  const router = useRouter()
+  const router = useRouter();
 
   const textSizingNormal = {
     fontSize: {
@@ -35,9 +35,21 @@ export default function donationPage() {
   return (
     <div className={styles.main}>
       <div className={styles.homeButton}>
-        <Button onClick={() => { router.push("/") }} style={{ color: "black" }}>
-          <Typography sx={{ textTransform: 'capitalize' }} variant="h5">
-            Home
+        <Button
+          onClick={() => {
+            router.push("/");
+          }}
+          style={{
+            color: "white",
+            outline: "solid 1px black",
+            backgroundColor: "rgba(33, 177, 138, 0.7)",
+          }}
+        >
+          <Typography sx={{ textTransform: "capitalize" }} variant="h5">
+            <Icon>
+              <img src={"White_Notext.svg"} width={20} height={20} />
+            </Icon>
+            HomePage
           </Typography>
         </Button>
       </div>

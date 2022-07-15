@@ -1,10 +1,10 @@
-import { Button, Link, Typography } from "@mui/material";
+import { Button, Link, Typography, Icon } from "@mui/material";
 import { useRouter } from "next/router";
-import footerButtonStyles from "../styles/footerPage.module.css"
+import footerButtonStyles from "../styles/footerPage.module.css";
 import styles from "../styles/partners.module.css";
 
 export default function corporatePage() {
-  const router = useRouter()
+  const router = useRouter();
 
   const textSizingNormal = {
     fontSize: {
@@ -26,10 +26,22 @@ export default function corporatePage() {
 
   return (
     <div className={styles.main}>
-      <div style={{ width: "80%" }} className={footerButtonStyles.homeButton}>
-        <Button onClick={() => { router.push("/") }} style={{ color: "black" }}>
-          <Typography sx={{ textTransform: 'capitalize' }} variant="h5">
-            Home
+      <div className={styles.homeButton}>
+        <Button
+          onClick={() => {
+            router.push("/");
+          }}
+          style={{
+            color: "white",
+            outline: "solid 1px black",
+            backgroundColor: "rgba(33, 177, 138, 0.7)",
+          }}
+        >
+          <Typography sx={{ textTransform: "capitalize" }} variant="h5">
+            <Icon>
+              <img src={"White_Notext.svg"} width={20} height={20} />
+            </Icon>
+            HomePage
           </Typography>
         </Button>
       </div>
