@@ -192,7 +192,6 @@ export default function Login() {
                                 onChange={handlePasswordInputChange}
                                 onBlur={validatePassword}
                                 onKeyUp={handleKeyPress}
-
                             />
                         </ThemeProvider>
                         <Button
