@@ -20,6 +20,15 @@ export default function feedbackPage() {
     },
   };
 
+  const textSizingHeaderTitle = {
+    fontSize: {
+      lg: 60,
+      md: 25,
+      sm: 20,
+      xs: 20,
+    },
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles.footerImageDiv}>
@@ -34,8 +43,8 @@ export default function feedbackPage() {
           variant="h2"
           display="block"
           gutterBottom
-          className={styles.textHeader}
-          sx={textSizingHeader}
+          className={styles.textHeaderTitle}
+          sx={textSizingHeaderTitle}
         >
           Give Us Feedback!
         </Typography>

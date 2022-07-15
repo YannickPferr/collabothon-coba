@@ -20,6 +20,15 @@ export default function TermsAndConditionsPage() {
     },
   };
 
+  const textSizingHeaderTitle = {
+    fontSize: {
+      lg: 60,
+      md: 25,
+      sm: 20,
+      xs: 20,
+    },
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles.footerImageDiv}>
@@ -29,6 +38,15 @@ export default function TermsAndConditionsPage() {
           className={styles.footerImage}
         />
       </div>
+      <Typography
+        variant="h2"
+        display="block"
+        gutterBottom
+        className={styles.textHeaderTitle}
+        sx={textSizingHeaderTitle}
+      >
+        Our Terms and Conditions
+      </Typography>
       <div className={styles.textDiv}>
         <Typography
           variant="h2"
