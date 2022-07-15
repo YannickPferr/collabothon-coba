@@ -15,7 +15,6 @@ import bcrypt from 'bcryptjs';
 import { doc, getDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import LoadingIndicator from '../components/LoadingIndicator';
 import { useAlerts } from '../contexts/Alerts';
 import { useAuth } from '../contexts/Auth';
 import db from '../firebase.config';
@@ -111,7 +110,7 @@ export default function Login() {
             xs: 25,
         },
     };
-    if (!user) return <LoadingIndicator />;
+    //if (!user) return <LoadingIndicator />;
 
     return (
         <>

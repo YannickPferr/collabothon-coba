@@ -8,7 +8,7 @@ export default function Footer({ appJs }) {
         return (
             router.asPath !== '/' &&
             router.asPath !== '/network' &&
-            router.asPath !== '/chat' && (
+            !router.asPath.startsWith('/chat') && (
                 <div className={styles.footer}>
                     <Link onClick={() => router.push('/faq')} underline="hover">
                         <Typography color={'white'}>FAQ</Typography>
