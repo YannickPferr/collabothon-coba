@@ -37,6 +37,7 @@ export default function DisplayMatch(props) {
                                         skills={match.skills}
                                         languages={match.languages}
                                         chatId={match.conversation}
+                                        showChatIcon={false}
                                     ></NetworkCard>
                                 ))}
                             </div>

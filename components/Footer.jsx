@@ -1,6 +1,6 @@
-import { Link, Typography } from '@mui/material';
-import { useRouter } from 'next/router';
-import styles from '../styles/Footer.module.css';
+import { Link, Typography } from "@mui/material";
+import { useRouter } from "next/router";
+import styles from "../styles/Footer.module.css";
 
 export default function Footer({ appJs }) {
     const router = useRouter();
@@ -38,6 +38,12 @@ export default function Footer({ appJs }) {
                         underline="hover"
                     >
                         <Typography color={'white'}>Support</Typography>
+                    </Link>
+                    <Link
+                        onClick={() => router.push('/partners')}
+                        underline="hover"
+                    >
+                        <Typography color={'white'}>Partners</Typography>
                     </Link>
                     <Link
                         onClick={() => router.push('/feedback')}
@@ -80,6 +86,12 @@ export default function Footer({ appJs }) {
                     <Typography color={'white'}>Support</Typography>
                 </Link>
                 <Link
+                    onClick={() => router.push('/partners')}
+                    underline="hover"
+                >
+                    <Typography color={'white'}>Partners</Typography>
+                </Link>
+                <Link
                     onClick={() => router.push('/feedback')}
                     underline="hover"
                 >
@@ -89,3 +101,4 @@ export default function Footer({ appJs }) {
         )
     );
 }
+

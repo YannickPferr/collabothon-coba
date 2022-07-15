@@ -36,6 +36,7 @@ export default function Network(props) {
                                     skills={match.skills}
                                     languages={match.languages}
                                     chatId={match.conversation}
+                                    showChatIcon={true}
                                 ></NetworkCard>
                             ))}
                         </div>

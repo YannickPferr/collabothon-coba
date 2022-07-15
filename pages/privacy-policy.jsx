@@ -1,7 +1,10 @@
-import { Link, Typography } from "@mui/material";
+import { Button, Link, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 import styles from "../styles/footerPage.module.css";
 
 export default function privacyPolicyPage() {
+  const router = useRouter()
+
   const textSizingNormal = {
     fontSize: {
       lg: 30,
@@ -20,8 +23,24 @@ export default function privacyPolicyPage() {
     },
   };
 
+  const textSizingHeaderTitle = {
+    fontSize: {
+      lg: 60,
+      md: 25,
+      sm: 20,
+      xs: 20,
+    },
+  };
+
   return (
     <div className={styles.main}>
+      <div className={styles.homeButton}>
+        <Button onClick={() => { router.push("/") }} style={{ color: "black" }}>
+          <Typography sx={{ textTransform: 'capitalize' }} variant="h5">
+            Home
+          </Typography>
+        </Button>
+      </div>
       <div className={styles.footerImageDiv}>
         <img
           src={"mock-images/privacy-policy.png"}
@@ -29,6 +48,15 @@ export default function privacyPolicyPage() {
           className={styles.footerImage}
         />
       </div>
+      <Typography
+        variant="h2"
+        display="block"
+        gutterBottom
+        className={styles.textHeaderTitle}
+        sx={textSizingHeaderTitle}
+      >
+        Our Privacy Policy
+      </Typography>
       <div className={styles.textDiv}>
         <Typography
           variant="h2"
