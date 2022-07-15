@@ -1,4 +1,4 @@
-import styles from '../styles/registration.module.css';
+import styles from '../styles/Registration.module.css';
 
 export default function Forum() {
     return (
