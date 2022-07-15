@@ -14,6 +14,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import ChatView from '../components/Chat/ChatView';
 import MessagePreview from '../components/Chat/MessagePreview';
+import Footer from '../components/Footer';
+import LoadingIndicator from '../components/LoadingIndicator';
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
 import { useAuth } from '../contexts/Auth';
 import db from '../firebase.config';
@@ -74,7 +76,7 @@ export default function Chat(props) {
 
     return (
         <>
-            {loggedIn && (
+            {loggedIn ? (
                 <div>
                     <ResponsiveAppBar />
                     <div className={styles.container}>
@@ -124,7 +126,10 @@ export default function Chat(props) {
                             )}
                         </div>
                     </div>
+                    <Footer appJs={false}></Footer>
                 </div>
+            ) : (
+                <LoadingIndicator />
             )}
         </>
     );

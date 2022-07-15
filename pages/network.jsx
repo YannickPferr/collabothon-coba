@@ -2,6 +2,8 @@ import { Typography } from '@mui/material';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import Footer from '../components/Footer';
+import LoadingIndicator from '../components/LoadingIndicator';
 import NetworkCard from '../components/NetworkCard';
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
 import { useAuth } from '../contexts/Auth';
@@ -18,7 +20,7 @@ export default function Network(props) {
 
     return (
         <>
-            {loggedIn && (
+            {loggedIn ? (
                 <div>
                     <ResponsiveAppBar />
                     <div className={styles.container}>
@@ -37,7 +39,10 @@ export default function Network(props) {
                             ))}
                         </div>
                     </div>
+                    <Footer appJs={false}></Footer>
                 </div>
+            ) : (
+                <LoadingIndicator />
             )}
         </>
     );
