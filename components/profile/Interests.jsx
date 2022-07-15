@@ -12,7 +12,7 @@ import { collection, getDocs } from "firebase/firestore";
 import React from "react";
 import styles from "../../styles/profile/profileSetup.module.css";
 
-function Interests() {
+function Interests({ isBuddy }) {
   const [skillsList, setSkillsList] = React.useState([]);
 
   React.useEffect(() => {
@@ -45,7 +45,7 @@ function Interests() {
       </Grid>
       <Grid item xs={8}>
         <Typography variant="h3" className={styles.languageHeader}>
-          Select your Superpowers!
+          {isBuddy ? "Select your Superpowers!" : "How can we help you?"}
         </Typography>
         <FormGroup>
           {skillsList.map((currentSkill) => (

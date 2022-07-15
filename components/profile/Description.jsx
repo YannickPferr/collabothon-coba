@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import React from "react";
 import styles from "../../styles/profile/profileSetup.module.css";
 
-function Description() {
+function Description({ isBuddy }) {
   const [description, setDescription] = React.useState("");
 
   const handleChangeDescription = (event) => {

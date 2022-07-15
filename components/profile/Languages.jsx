@@ -11,7 +11,7 @@ import {
 import React from "react";
 import styles from "../../styles/profile/profileSetup.module.css";
 
-function Languages() {
+function Languages({ isBuddy }) {
   const [languages, setLanguages] = React.useState(allLanguages);
   const [selectedLanguages, setSelectedLanguages] = React.useState([]);
 

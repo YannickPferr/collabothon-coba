@@ -6,10 +6,12 @@ import Interests from '../components/profile/Interests';
 import Languages from '../components/profile/Languages';
 import Location from '../components/profile/Location';
 import Welcome from '../components/profile/WelcomeProfile';
+import { useAuth } from '../contexts/Auth';
 import styles from '../styles/Profile.module.css';
 
 function CreateProfile() {
     const [activeStep, setActiveStep] = React.useState(0);
+    const { user } = useAuth()
     const router = useRouter();
     const steps = [
         'Start',
@@ -20,11 +22,11 @@ function CreateProfile() {
     ];
 
     const pages = [
-        <Welcome />,
-        <Location />,
-        <Languages />,
-        <Interests />,
-        <Description />,
+        <Welcome isBuddy={user.role === "Buddy"} />,
+        <Location isBuddy={user.role === "Buddy"} />,
+        <Languages isBuddy={user.role === "Buddy"} />,
+        <Interests isBuddy={user.role === "Buddy"} />,
+        <Description isBuddy={user.role === "Buddy"} />,
     ];
 
     const reroute = () => {

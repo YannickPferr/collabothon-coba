@@ -1,7 +1,7 @@
 import { Typography, Grid } from "@mui/material";
 import styles from "../../styles/profile/profileSetup.module.css";
 
-function Welcome() {
+function Welcome({ isBuddy }) {
   return (
     <Grid container spacing={2}>
       <Grid item xs={5}>
@@ -15,7 +15,7 @@ function Welcome() {
       </Grid>
       <Grid item xs={7} className={styles.welcomeTextContainer}>
         <Typography variant="h3" align="center" className={styles.headerText}>
-          Thank you for your iniciative in helping people!
+          {isBuddy ? "Thank you for your iniciative in helping people!" : "Let's find someone who can help you!"}
         </Typography>
       </Grid>
     </Grid>
