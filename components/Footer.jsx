@@ -1,6 +1,6 @@
-import { Link, Typography } from '@mui/material';
-import { useRouter } from 'next/router';
-import styles from '../styles/Footer.module.css';
+import { Link, Typography } from "@mui/material";
+import { useRouter } from "next/router";
+import styles from "../styles/Footer.module.css";
 
 export default function Footer({ appJs }) {
     const router = useRouter();
@@ -101,3 +101,4 @@ export default function Footer({ appJs }) {
         )
     );
 }
+

@@ -23,6 +23,15 @@ export default function privacyPolicyPage() {
     },
   };
 
+  const textSizingHeaderTitle = {
+    fontSize: {
+      lg: 60,
+      md: 25,
+      sm: 20,
+      xs: 20,
+    },
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles.homeButton}>
@@ -39,6 +48,15 @@ export default function privacyPolicyPage() {
           className={styles.footerImage}
         />
       </div>
+      <Typography
+        variant="h2"
+        display="block"
+        gutterBottom
+        className={styles.textHeaderTitle}
+        sx={textSizingHeaderTitle}
+      >
+        Our Privacy Policy
+      </Typography>
       <div className={styles.textDiv}>
         <Typography
           variant="h2"
