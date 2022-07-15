@@ -6,9 +6,6 @@ import {
   getDoc,
   getDocs,
   onSnapshot,
-  orderBy,
-  query,
-  where,
 } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -119,28 +116,6 @@ export default function Chat(props) {
   );
 }
 
-const fetchAllMessages = async (chatId) => {
-  const messagesRef = collection(db, "message");
-  const q = query(
-    messagesRef,
-    where("conversation", "==", chatId),
-    orderBy("time")
-  );
-  const allMessages = [];
-  const docs = await getDocs(q);
-  docs.forEach((msg) => {
-    const data = msg.data();
-    allMessages.push({
-      chatId: chatId,
-      from: data.from,
-      to: data.to,
-      message: data.message,
-      time: data.time,
-    });
-  });
-  return allMessages;
-};
-
 const fetchAllConversations = async () => {
   const conversations = {};
   const conversationsRef = collection(db, "conversation");
@@ -156,8 +131,6 @@ const fetchAllConversations = async () => {
       const docRefMigrant = doc(db, "user", convData.migrant);
       const migrantDoc = await getDoc(docRefMigrant);
       const migrantData = migrantDoc.data();
-
-      //const messages = await fetchAllMessages(conversation.id);
 
       if (!conversations[migrantData.email])
         conversations[migrantData.email] = [];

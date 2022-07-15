@@ -12,19 +12,25 @@ export default function ChatView({ chatId, toUser, msgs }) {
     const ref = useRef(null);
 
     const sendMessage = async () => {
-        const docRef = await addDoc(collection(db, 'message'), {
-            conversation: chatId,
-            from: user.email,
-            to: toUser.email,
-            time: Timestamp.now(),
-            message: text,
-        });
-        setText('');
-        ref.current && ref.current.scrollIntoView({ behavior: 'smooth' });
+        if (!!text) {
+            const docRef = await addDoc(collection(db, 'message'), {
+                conversation: chatId,
+                from: user.email,
+                to: toUser.email,
+                time: Timestamp.now(),
+                message: text,
+            });
+            setText('');
+            ref.current && ref.current.scrollIntoView({ behavior: 'smooth' });
+        }
     };
 
     const handleMessageInputChange = (e) => {
         setText(e.target.value);
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.keyCode == 13) sendMessage();
     };
 
     return (
@@ -65,6 +71,7 @@ export default function ChatView({ chatId, toUser, msgs }) {
             </div>
             <div className={styles.sendArea}>
                 <TextField
+                    autoComplete="off"
                     id="outlined-basic"
                     label="Write a message"
                     type="text"
@@ -73,6 +80,8 @@ export default function ChatView({ chatId, toUser, msgs }) {
                     size="small"
                     value={text}
                     onChange={handleMessageInputChange}
+                    onKeyUp={handleKeyPress}
+                    autoComplete="off"
                 />
                 <Button size="large" variant="contained" onClick={sendMessage}>
                     <SendIcon />

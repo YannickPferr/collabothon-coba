@@ -133,6 +133,7 @@ export default function Login() {
                     <div className={styles.textFieldContainer}>
                         <ThemeProvider theme={customTextFieldTheme}>
                             <TextField
+                                autoComplete="off"
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
@@ -159,6 +160,7 @@ export default function Login() {
                         </ThemeProvider>
                         <ThemeProvider theme={customTextFieldTheme}>
                             <TextField
+                                autoComplete="off"
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
