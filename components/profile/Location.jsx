@@ -102,7 +102,7 @@ function Location() {
       </Grid>
       <Grid item xs={8}>
         <Typography variant="h3" className={styles.headerText}>
-          Location
+          Where are you located?
         </Typography>
         <Grid container spacing={2}>
           <Grid item xs={6}>

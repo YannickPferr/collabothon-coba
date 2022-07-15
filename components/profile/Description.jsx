@@ -27,7 +27,7 @@ function Description() {
           variant="h3"
           className={styles.languageHeader}
         >
-          Describe yourself in a few words
+          Describe yourself in a few words!
         </Typography>
         <TextField
           fullWidth

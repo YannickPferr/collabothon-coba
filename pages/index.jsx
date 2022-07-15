@@ -69,7 +69,6 @@ export default function MainPage(props) {
                     <div className={styles.container}>
                         {components[selectedPage]}
                     </div>
-                    <Footer></Footer>
                 </div>
             )}
         </>

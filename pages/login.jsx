@@ -1,4 +1,4 @@
-import { Button, Link, TextField, Typography } from "@mui/material";
+import { Button, Icon, InputAdornment, Link, TextField, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import bcrypt from "bcryptjs";
 import { doc, getDoc } from "firebase/firestore";
@@ -8,6 +8,11 @@ import { useAlerts } from "../contexts/Alerts";
 import { useAuth } from "../contexts/Auth";
 import db from "../firebase.config";
 import styles from "../styles/Login.module.css";
+import EuroIcon from '@mui/icons-material/Euro';
+import FlagIcon from '@mui/icons-material/Flag';
+import HandshakeIcon from '@mui/icons-material/Handshake';
+import EmailIcon from '@mui/icons-material/Email';
+import KeyIcon from '@mui/icons-material/Key';
 
 const validEmailRegex =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -119,6 +124,13 @@ export default function Login() {
           <div className={styles.textFieldContainer}>
             <ThemeProvider theme={customTextFieldTheme}>
               <TextField
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <EmailIcon />
+                    </InputAdornment>
+                  ),
+                }}
                 id="outlined-basic"
                 label="Email"
                 type="email"
@@ -134,6 +146,13 @@ export default function Login() {
             </ThemeProvider>
             <ThemeProvider theme={customTextFieldTheme}>
               <TextField
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <KeyIcon />
+                    </InputAdornment>
+                  ),
+                }}
                 id="outlined-basic"
                 label="Password"
                 type="password"
@@ -150,7 +169,26 @@ export default function Login() {
               />
             </ThemeProvider>
             <Button fullWidth size="large" variant="contained" onClick={submit}>
-              Login
+              <Typography variant="h6">
+                Login
+              </Typography>
+            </Button>
+          </div>
+          <div className={styles.donatePartnerButtonsContainer}>
+            <Button variant="contained" startIcon={<FlagIcon />} className={styles.donatePartnerButton} fullWidth>
+              <Typography variant="h6">
+                Start tour
+              </Typography>
+            </Button>
+            <Button variant="contained" startIcon={<EuroIcon />} className={styles.donatePartnerButton} fullWidth style={{ marginRight: "20px", marginLeft: "20px" }}>
+              <Typography variant="h6">
+                Donate
+              </Typography>
+            </Button>
+            <Button variant="contained" startIcon={<HandshakeIcon />} className={styles.donatePartnerButton} fullWidth>
+              <Typography variant="h6">
+                Corporate Partners
+              </Typography>
             </Button>
           </div>
           <div className={styles.signupDiv}>
