@@ -40,6 +40,12 @@ export default function Footer({ appJs }) {
                         <Typography color={'white'}>Support</Typography>
                     </Link>
                     <Link
+                        onClick={() => router.push('/partners')}
+                        underline="hover"
+                    >
+                        <Typography color={'white'}>Partners</Typography>
+                    </Link>
+                    <Link
                         onClick={() => router.push('/feedback')}
                         underline="hover"
                     >
@@ -78,6 +84,12 @@ export default function Footer({ appJs }) {
                 </Link>
                 <Link onClick={() => router.push('/support')} underline="hover">
                     <Typography color={'white'}>Support</Typography>
+                </Link>
+                <Link
+                    onClick={() => router.push('/partners')}
+                    underline="hover"
+                >
+                    <Typography color={'white'}>Partners</Typography>
                 </Link>
                 <Link
                     onClick={() => router.push('/feedback')}

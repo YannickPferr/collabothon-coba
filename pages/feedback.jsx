@@ -1,7 +1,10 @@
-import { Link, Typography } from "@mui/material";
+import { Button, Link, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 import styles from "../styles/footerPage.module.css";
 
 export default function feedbackPage() {
+  const router = useRouter()
+
   const textSizingNormal = {
     fontSize: {
       lg: 30,
@@ -22,6 +25,13 @@ export default function feedbackPage() {
 
   return (
     <div className={styles.main}>
+      <div className={styles.homeButton}>
+        <Button onClick={() => { router.push("/") }} style={{ color: "black" }}>
+          <Typography sx={{ textTransform: 'capitalize' }} variant="h5">
+            Home
+          </Typography>
+        </Button>
+      </div>
       <div className={styles.footerImageDiv}>
         <img
           src={"mock-images/feedback.png"}
