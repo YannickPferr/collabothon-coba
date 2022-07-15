@@ -6,6 +6,7 @@ import db from '../firebase.config';
 import NetworkCard from "../components/NetworkCard";
 import { useAuth } from "../contexts/Auth";
 import { useRouter } from "next/router";
+import Confetti from 'react-confetti'
 
 export default function DisplayMatch(props) {
     const { loggedIn, user } = useAuth();
@@ -16,11 +17,12 @@ export default function DisplayMatch(props) {
             {loggedIn && (
                 <div>
                     <div className={styles.container}>
+                        <Confetti />
                         <div className={styles.header}>
                             <Typography variant="h2">Congratulations!</Typography>
                             <Typography variant="h4">You were matched with the following buddies</Typography>
                         </div>
-                        <div className={styles.main}>
+                        <div className={styles.mainDisplayMatch}>
                             {props.network[user.email]?.map((match, index) => (
                                 <NetworkCard
                                     name={match.name}
