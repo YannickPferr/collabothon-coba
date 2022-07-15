@@ -1,167 +1,174 @@
 import React from "react";
-import { Card, CardActionArea, CardMedia, CardContent, Typography, Button, LinearProgress, CircularProgress } from "@mui/material";
-import styles from '../styles/Network.module.css';
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
-import db from '../firebase.config';
+import {
+  Card,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+  Typography,
+  Button,
+  LinearProgress,
+  CircularProgress,
+} from "@mui/material";
+import styles from "../styles/Network.module.css";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import db from "../firebase.config";
 import NetworkCard from "../components/NetworkCard";
 import { useAuth } from "../contexts/Auth";
 import { useRouter } from "next/router";
-import Confetti from 'react-confetti'
+import Confetti from "react-confetti";
 
 export default function DisplayMatch(props) {
-    const { loggedIn, user } = useAuth();
-    const router = useRouter();
-    const [showLoading, setShowLoading] = React.useState(true)
-    React.useEffect(() => {
-        setTimeout(() => {
-            setShowLoading(false)
-        }, 3000)
-    }, [])
+  const { loggedIn, user } = useAuth();
+  const router = useRouter();
+  const [showLoading, setShowLoading] = React.useState(true);
+  React.useEffect(() => {
+    setTimeout(() => {
+      setShowLoading(false);
+    }, 3000);
+  }, []);
 
-    return (
-        <>
-            {loggedIn && (
-                !showLoading ? (
-                    <div>
-                        <div className={styles.container}>
-                            <Confetti />
-                            <div className={styles.header}>
-                                <Typography variant="h2">Congratulations!</Typography>
-                                <Typography variant="h4">You were matched with the following buddies</Typography>
-                            </div>
-                            <div className={styles.mainDisplayMatch}>
-                                {props.network[user.email]?.map((match, index) => (
-                                    <NetworkCard
-                                        name={match.name}
-                                        email={match.email}
-                                        skills={match.skills}
-                                        languages={match.languages}
-                                        chatId={match.conversation}
-                                        showChatIcon={false}
-                                    ></NetworkCard>
-                                ))}
-                            </div>
-                        </div>
-                        <div className={styles.buttonContainer}>
-                            <Button className={styles.continueButton} onClick={() => router.push("/network")} variant="contained">
-                                <Typography variant="h5">
-                                    Continue
-                                </Typography>
-                            </Button>
-                        </div>
-                    </div>
-                ) :
-                    <div className={styles.loadingScreen}>
-                        <Typography variant="h2">
-                            Finding you buddies
-                        </Typography>
-                        <CircularProgress
-                            size={200}
-                            thickness={4}
-                            {...props}
-                        />
-                    </div>
-            )}
-        </>
-    )
+  return (
+    <>
+      {loggedIn &&
+        (!showLoading ? (
+          <div>
+            <div className={styles.container}>
+              <Confetti />
+              <div className={styles.header}>
+                <Typography variant="h2" style={{ color: "white" }}>
+                  Congratulations!
+                </Typography>
+                <Typography variant="h4" style={{ color: "white" }}>
+                  You were matched with the following buddies
+                </Typography>
+              </div>
+              <div className={styles.mainDisplayMatch}>
+                {props.network[user.email]?.map((match, index) => (
+                  <NetworkCard
+                    name={match.name}
+                    email={match.email}
+                    skills={match.skills}
+                    languages={match.languages}
+                    chatId={match.conversation}
+                    showChatIcon={false}
+                  ></NetworkCard>
+                ))}
+              </div>
+            </div>
+            <div className={styles.buttonContainer}>
+              <Button
+                className={styles.continueButton}
+                onClick={() => router.push("/network")}
+                variant="contained"
+              >
+                <Typography variant="h5">Continue</Typography>
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className={styles.loadingScreen}>
+            <Typography variant="h2" style={{ color: "white" }}>
+              Finding you buddies
+            </Typography>
+            <CircularProgress size={200} thickness={4} {...props} />
+          </div>
+        ))}
+    </>
+  );
 }
 
 const fetchAllSkills = async (email) => {
-    const docRef = doc(db, 'user', email);
-    const user = await getDoc(docRef);
-    const skills = await user.get('skill');
-    const result = [];
-    if (skills) {
-        const skillRef = collection(db, 'skills');
-        const skillCollection = await getDocs(skillRef);
-        await Promise.all(
-            skills.map(async (skill) => {
-                skillCollection.docs.map((sk) => {
-                    const data = sk.data();
-                    console.log(data);
-                    if (skill == data.skillId) result.push(data.skillName);
-                });
-            })
-        );
-    }
-    console.log(result);
-    return result;
+  const docRef = doc(db, "user", email);
+  const user = await getDoc(docRef);
+  const skills = await user.get("skill");
+  const result = [];
+  if (skills) {
+    const skillRef = collection(db, "skills");
+    const skillCollection = await getDocs(skillRef);
+    await Promise.all(
+      skills.map(async (skill) => {
+        skillCollection.docs.map((sk) => {
+          const data = sk.data();
+          console.log(data);
+          if (skill == data.skillId) result.push(data.skillName);
+        });
+      })
+    );
+  }
+  console.log(result);
+  return result;
 };
 
 const fetchAllLanguages = async (email) => {
-    const docRef = doc(db, 'user', email);
-    const user = await getDoc(docRef);
-    const languages = await user.get('languageId');
-    const result = [];
-    if (languages) {
-        const languagesRef = collection(db, 'languages');
-        const languageCollection = await getDocs(languagesRef);
-        await Promise.all(
-            languages.map(async (language) => {
-                languageCollection.docs.map((l) => {
-                    const data = l.data();
-                    if (language == data.languageId)
-                        result.push(data.languageName);
-                });
-            })
-        );
-    }
-    console.log(result);
-    return result;
+  const docRef = doc(db, "user", email);
+  const user = await getDoc(docRef);
+  const languages = await user.get("languageId");
+  const result = [];
+  if (languages) {
+    const languagesRef = collection(db, "languages");
+    const languageCollection = await getDocs(languagesRef);
+    await Promise.all(
+      languages.map(async (language) => {
+        languageCollection.docs.map((l) => {
+          const data = l.data();
+          if (language == data.languageId) result.push(data.languageName);
+        });
+      })
+    );
+  }
+  console.log(result);
+  return result;
 };
 
 const fetchAllMatchInfos = async () => {
-    const matchInfo = {};
-    const conversationsRef = collection(db, 'conversation');
-    const relevantConversations = await getDocs(conversationsRef);
-    await Promise.all(
-        relevantConversations.docs.map(async (conversation) => {
-            // doc.data() is never undefined for query doc snapshots
-            const convData = conversation.data();
-            const docRefBuddy = doc(db, 'user', convData.buddy);
-            const buddyDoc = await getDoc(docRefBuddy);
-            const buddyData = buddyDoc.data();
+  const matchInfo = {};
+  const conversationsRef = collection(db, "conversation");
+  const relevantConversations = await getDocs(conversationsRef);
+  await Promise.all(
+    relevantConversations.docs.map(async (conversation) => {
+      // doc.data() is never undefined for query doc snapshots
+      const convData = conversation.data();
+      const docRefBuddy = doc(db, "user", convData.buddy);
+      const buddyDoc = await getDoc(docRefBuddy);
+      const buddyData = buddyDoc.data();
 
-            const docRefMigrant = doc(db, 'user', convData.migrant);
-            const migrantDoc = await getDoc(docRefMigrant);
-            const migrantData = migrantDoc.data();
+      const docRefMigrant = doc(db, "user", convData.migrant);
+      const migrantDoc = await getDoc(docRefMigrant);
+      const migrantData = migrantDoc.data();
 
-            const buddySkills = await fetchAllSkills(buddyData.email);
-            const migrantSkills = await fetchAllSkills(migrantData.email);
+      const buddySkills = await fetchAllSkills(buddyData.email);
+      const migrantSkills = await fetchAllSkills(migrantData.email);
 
-            const buddyLanguages = await fetchAllLanguages(buddyData.email);
-            const migrantLanguages = await fetchAllLanguages(migrantData.email);
+      const buddyLanguages = await fetchAllLanguages(buddyData.email);
+      const migrantLanguages = await fetchAllLanguages(migrantData.email);
 
-            if (!matchInfo[migrantData.email])
-                matchInfo[migrantData.email] = [];
-            matchInfo[migrantData.email].push({
-                name: buddyData.name,
-                email: buddyData.email,
-                skills: buddySkills,
-                languages: buddyLanguages,
-                conversation: conversation.id,
-            });
+      if (!matchInfo[migrantData.email]) matchInfo[migrantData.email] = [];
+      matchInfo[migrantData.email].push({
+        name: buddyData.name,
+        email: buddyData.email,
+        skills: buddySkills,
+        languages: buddyLanguages,
+        conversation: conversation.id,
+      });
 
-            if (!matchInfo[buddyData.email]) matchInfo[buddyData.email] = [];
-            matchInfo[buddyData.email].push({
-                name: migrantData.name,
-                email: migrantData.email,
-                skills: migrantSkills,
-                languages: migrantLanguages,
-                conversation: conversation.id,
-            });
-        })
-    );
-    return matchInfo;
+      if (!matchInfo[buddyData.email]) matchInfo[buddyData.email] = [];
+      matchInfo[buddyData.email].push({
+        name: migrantData.name,
+        email: migrantData.email,
+        skills: migrantSkills,
+        languages: migrantLanguages,
+        conversation: conversation.id,
+      });
+    })
+  );
+  return matchInfo;
 };
 
 export async function getStaticProps() {
-    const network = await fetchAllMatchInfos();
-    return {
-        props: {
-            network: JSON.parse(JSON.stringify(network)),
-        },
-    };
+  const network = await fetchAllMatchInfos();
+  return {
+    props: {
+      network: JSON.parse(JSON.stringify(network)),
+    },
+  };
 }
-
-

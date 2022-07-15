@@ -10,6 +10,12 @@
   margin-right: 10vw;
 }
 
+.logoReturnBack {
+  width: 25px;
+  height: auto;
+  margin-left: 10px;
+}
+
 .textHeader {
   color: white;
   text-align: center;
