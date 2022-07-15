@@ -14,7 +14,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import bcrypt from 'bcryptjs';
 import { doc, getDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import LoadingIndicator from '../components/LoadingIndicator';
 import { useAlerts } from '../contexts/Alerts';
 import { useAuth } from '../contexts/Auth';
 import db from '../firebase.config';
@@ -23,7 +24,7 @@ import styles from '../styles/Login.module.css';
 const validEmailRegex =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default function Login() {
-    const { user, loggedIn, login } = useAuth();
+    const { loggedIn, login, loading } = useAuth();
     const { addAlert } = useAlerts();
     const router = useRouter();
 
@@ -110,7 +111,12 @@ export default function Login() {
             xs: 25,
         },
     };
-    //if (!user) return <LoadingIndicator />;
+
+    useEffect(() => {
+        !loading && loggedIn && router.push('/network');
+    }, [loading, loggedIn]);
+
+    if (loading) return <LoadingIndicator />;
 
     return (
         <>

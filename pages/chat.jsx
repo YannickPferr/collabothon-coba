@@ -19,7 +19,7 @@ import db from '../firebase.config';
 import styles from '../styles/Chat.module.css';
 
 export default function Chat(props) {
-    const { user, loggedIn } = useAuth();
+    const { user, loggedIn, loading } = useAuth();
     const router = useRouter();
 
     const [update, setUpdate] = useState(false);
@@ -35,10 +35,6 @@ export default function Chat(props) {
                 )
             );
     }, [router.query.chatId]);
-
-    useEffect(() => {
-        !loggedIn && router.push('/login');
-    }, [loggedIn]);
 
     useEffect(() => {
         if (update) {
@@ -71,9 +67,16 @@ export default function Chat(props) {
         return () => unsub();
     }, []);
 
+    useEffect(() => {
+        console.log(loading + ' ' + loggedIn);
+        !loading && !loggedIn && router.push('/login');
+    }, [loading, loggedIn]);
+
+    if (loading) return <LoadingIndicator />;
+
     return (
         <>
-            {loggedIn ? (
+            {loggedIn && (
                 <div>
                     <ResponsiveAppBar />
                     <div className={styles.container}>
@@ -125,8 +128,6 @@ export default function Chat(props) {
                     </div>
                     <Footer appJs={false}></Footer>
                 </div>
-            ) : (
-                <LoadingIndicator />
             )}
         </>
     );

@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -11,16 +11,17 @@ import db from '../firebase.config';
 import styles from '../styles/Network.module.css';
 
 export default function Network(props) {
-    const { loggedIn, user } = useAuth();
+    const { loggedIn, user, loading } = useAuth();
     const router = useRouter();
 
     useEffect(() => {
-        !loggedIn && router.push('/login');
-    }, [loggedIn]);
+        !loading && !loggedIn && router.push('/login');
+    }, [loading, loggedIn]);
 
+    if (loading) return <LoadingIndicator />;
     return (
         <>
-            {loggedIn ? (
+            {loggedIn && (
                 <div>
                     <ResponsiveAppBar />
                     <div className={styles.container}>
@@ -41,8 +42,6 @@ export default function Network(props) {
                     </div>
                     <Footer appJs={false}></Footer>
                 </div>
-            ) : (
-                <LoadingIndicator />
             )}
         </>
     );
