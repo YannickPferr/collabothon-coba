@@ -85,6 +85,8 @@ export default function Chat(props) {
                                 sx={{
                                     width: '100%',
                                     maxWidth: 360,
+                                    height: '100%',
+                                    overflow: 'auto',
                                 }}
                             >
                                 {user &&
