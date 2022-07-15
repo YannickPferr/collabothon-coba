@@ -1,7 +1,7 @@
 import SendIcon from '@mui/icons-material/Send';
 import { Button, List, ListItem, ListItemText, TextField } from '@mui/material';
 import { addDoc, collection, Timestamp } from 'firebase/firestore';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useAuth } from '../../contexts/Auth';
 import db from '../../firebase.config';
 import styles from '../../styles/ChatView.module.css';
@@ -9,6 +9,7 @@ import styles from '../../styles/ChatView.module.css';
 export default function ChatView({ chatId, toUser, msgs }) {
     const { user } = useAuth();
     const [text, setText] = useState('');
+    const ref = useRef(null);
 
     const sendMessage = async () => {
         const docRef = await addDoc(collection(db, 'message'), {
@@ -19,6 +20,7 @@ export default function ChatView({ chatId, toUser, msgs }) {
             message: text,
         });
         setText('');
+        ref.current && ref.current.scrollIntoView({ behavior: 'smooth' });
     };
 
     const handleMessageInputChange = (e) => {
@@ -58,6 +60,7 @@ export default function ChatView({ chatId, toUser, msgs }) {
                             </div>
                         );
                     })}
+                    <div ref={ref} />
                 </List>
             </div>
             <div className={styles.sendArea}>
