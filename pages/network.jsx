@@ -39,9 +39,6 @@ export default function Network(props) {
                             ))}
                         </div>
                     </div>
-                    <Button onClick={() => router.push("/display-match")}>
-                        display-match
-                    </Button>
                     <Footer appJs={false}></Footer>
                 </div>
             ) : (

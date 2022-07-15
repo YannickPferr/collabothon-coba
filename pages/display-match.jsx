@@ -1,45 +1,65 @@
 import React from "react";
-import { Card, CardActionArea, CardMedia, CardContent, Typography, Button } from "@mui/material";
+import { Card, CardActionArea, CardMedia, CardContent, Typography, Button, LinearProgress, CircularProgress } from "@mui/material";
 import styles from '../styles/Network.module.css';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import db from '../firebase.config';
 import NetworkCard from "../components/NetworkCard";
 import { useAuth } from "../contexts/Auth";
 import { useRouter } from "next/router";
+import Confetti from 'react-confetti'
 
 export default function DisplayMatch(props) {
     const { loggedIn, user } = useAuth();
     const router = useRouter();
+    const [showLoading, setShowLoading] = React.useState(true)
+    React.useEffect(() => {
+        setTimeout(() => {
+            setShowLoading(false)
+        }, 3000)
+    }, [])
 
     return (
         <>
             {loggedIn && (
-                <div>
-                    <div className={styles.container}>
-                        <div className={styles.header}>
-                            <Typography variant="h2">Congratulations!</Typography>
-                            <Typography variant="h4">You were matched with the following buddies</Typography>
+                !showLoading ? (
+                    <div>
+                        <div className={styles.container}>
+                            <Confetti />
+                            <div className={styles.header}>
+                                <Typography variant="h2">Congratulations!</Typography>
+                                <Typography variant="h4">You were matched with the following buddies</Typography>
+                            </div>
+                            <div className={styles.mainDisplayMatch}>
+                                {props.network[user.email]?.map((match, index) => (
+                                    <NetworkCard
+                                        name={match.name}
+                                        email={match.email}
+                                        skills={match.skills}
+                                        languages={match.languages}
+                                        chatId={match.conversation}
+                                    ></NetworkCard>
+                                ))}
+                            </div>
                         </div>
-                        <div className={styles.main}>
-                            {props.network[user.email]?.map((match, index) => (
-                                <NetworkCard
-                                    name={match.name}
-                                    email={match.email}
-                                    skills={match.skills}
-                                    languages={match.languages}
-                                    chatId={match.conversation}
-                                ></NetworkCard>
-                            ))}
+                        <div className={styles.buttonContainer}>
+                            <Button className={styles.continueButton} onClick={() => router.push("/network")} variant="contained">
+                                <Typography variant="h5">
+                                    Continue
+                                </Typography>
+                            </Button>
                         </div>
                     </div>
-                    <div className={styles.buttonContainer}>
-                        <Button className={styles.continueButton} onClick={() => router.push("/network")} variant="contained">
-                            <Typography variant="h5">
-                                Continue
-                            </Typography>
-                        </Button>
+                ) :
+                    <div className={styles.loadingScreen}>
+                        <Typography variant="h2">
+                            Finding you buddies
+                        </Typography>
+                        <CircularProgress
+                            size={200}
+                            thickness={4}
+                            {...props}
+                        />
                     </div>
-                </div>
             )}
         </>
     )

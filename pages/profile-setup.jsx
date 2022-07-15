@@ -30,8 +30,7 @@ function CreateProfile() {
     ];
 
     const reroute = () => {
-        console.log('Hi');
-        router.push('/');
+        router.push('/display-match');
     };
 
     return (
