@@ -42,7 +42,7 @@ const containerStyle = {
   height: "300px",
 };
 
-function Location() {
+function Location({ isBuddy }) {
   const [selectedCountry, setSelectedCountry] = React.useState(undefined);
   const [postCode, setPostCode] = React.useState("");
   const [acceptedPostCode, setAcceptedPostCode] = React.useState(true);
