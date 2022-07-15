@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import LoadingIndicator from '../components/LoadingIndicator';
 import { useAuth } from '../contexts/Auth';
 
 export default function MainPage(props) {
@@ -10,5 +11,5 @@ export default function MainPage(props) {
         !loggedIn ? router.push('/login') : router.push('/network');
     }, [loggedIn]);
 
-    return <></>;
+    return <LoadingIndicator />;
 }
