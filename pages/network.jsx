@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -39,6 +39,9 @@ export default function Network(props) {
                             ))}
                         </div>
                     </div>
+                    <Button onClick={() => router.push("/display-match")}>
+                        display-match
+                    </Button>
                     <Footer appJs={false}></Footer>
                 </div>
             ) : (
