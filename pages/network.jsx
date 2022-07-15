@@ -2,7 +2,6 @@ import { Typography } from '@mui/material';
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import Footer from '../components/Footer';
 import NetworkCard from '../components/NetworkCard';
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
 import { useAuth } from '../contexts/Auth';
@@ -20,7 +19,7 @@ export default function Network(props) {
     return (
         <>
             {loggedIn && (
-                <div style={{ height: '100vh' }}>
+                <div>
                     <ResponsiveAppBar />
                     <div className={styles.container}>
                         <div className={styles.header}>

@@ -23,8 +23,8 @@ const ResponsiveAppBar = () => {
         { name: 'Chat', route: '/chat' },
     ];
     const settings = [
-        { name: 'Profile', onClick: () => { } },
-        { name: 'Account Settings', onClick: () => { } },
+        { name: 'Profile', onClick: () => {} },
+        { name: 'Account Settings', onClick: () => {} },
         {
             name: 'Logout',
             onClick: () => logout(),
@@ -52,7 +52,13 @@ const ResponsiveAppBar = () => {
 
     const fullname = user.name.split(' ');
     return (
-        <AppBar position="static" style={{ backgroundColor: "rgba(33, 177, 138,0.7)" }}>
+        <AppBar
+            position="static"
+            style={{
+                height: '65px',
+                backgroundColor: 'rgba(33, 177, 138,0.7)',
+            }}
+        >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <AdbIcon
