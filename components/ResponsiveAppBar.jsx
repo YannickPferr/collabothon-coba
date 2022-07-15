@@ -77,6 +77,7 @@ const ResponsiveAppBar = () => {
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
+                            cursor: 'pointer',
                         }}
                     >
                         ReNetwork
@@ -145,6 +146,7 @@ const ResponsiveAppBar = () => {
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
+                            cursor: 'pointer',
                         }}
                     >
                         ReNetwork
