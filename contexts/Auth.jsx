@@ -5,6 +5,7 @@ import db from '../firebase.config';
 
 const AuthContext = createContext({
     loggedIn: false,
+    loading: true,
     user: null,
     login: (email, route = '/') => {},
     logout: () => {},
@@ -12,20 +13,25 @@ const AuthContext = createContext({
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
     const router = useRouter();
+
+    useEffect(() => {}, []);
 
     useEffect(() => {
         const email = localStorage.getItem('user');
         if (!!email) login(email);
+        else setLoading(false);
     }, []);
 
-    const login = async (email, route = '/') => {
+    const login = async (email, route) => {
         const docRef = doc(db, 'user', email);
         const userDoc = await getDoc(docRef);
         const data = userDoc.data();
         setUser(userDoc.data());
+        setLoading(false);
         localStorage.setItem('user', email);
-        router.push(route);
+        route && router.push(route);
     };
 
     const logout = () => {
@@ -35,7 +41,9 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ loggedIn: !!user, user, login, logout }}>
+        <AuthContext.Provider
+            value={{ loggedIn: !!user, loading, user, login, logout }}
+        >
             {children}
         </AuthContext.Provider>
     );

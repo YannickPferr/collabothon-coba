@@ -22,11 +22,11 @@ function CreateProfile() {
     ];
 
     const pages = [
-        <Welcome isBuddy={user.role === 'Buddy'} />,
-        <Location isBuddy={user.role === 'Buddy'} />,
-        <Languages isBuddy={user.role === 'Buddy'} />,
-        <Interests isBuddy={user.role === 'Buddy'} />,
-        <Description isBuddy={user.role === 'Buddy'} />,
+        <Welcome isBuddy={user?.role === 'Buddy'} />,
+        <Location isBuddy={user?.role === 'Buddy'} />,
+        <Languages isBuddy={user?.role === 'Buddy'} />,
+        <Interests isBuddy={user?.role === 'Buddy'} />,
+        <Description isBuddy={user?.role === 'Buddy'} />,
     ];
 
     const reroute = () => {
