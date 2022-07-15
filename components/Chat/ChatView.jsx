@@ -71,7 +71,6 @@ export default function ChatView({ chatId, toUser, msgs }) {
             </div>
             <div className={styles.sendArea}>
                 <TextField
-                    autoComplete="off"
                     id="outlined-basic"
                     label="Write a message"
                     type="text"

@@ -56,12 +56,19 @@ export default function Login() {
                     addAlert('success', 'Sucessfully logged in');
                     login(email);
                 } else setPasswordFieldError('Incorrect password');
-            } else setEmailFieldError('This user does not exist');
+            } else {
+                setEmailFieldError(" ")
+                setPasswordFieldError('Invalid Credentials');
+            }
         }
     };
 
     const handleEmailInputChange = (e) => {
         setEmail(e.target.value);
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.keyCode == 13) submit(e);
     };
 
     const validateEmail = () => {
@@ -156,6 +163,7 @@ export default function Login() {
                                 value={email}
                                 onChange={handleEmailInputChange}
                                 onBlur={validateEmail}
+                                onKeyUp={handleKeyPress}
                             />
                         </ThemeProvider>
                         <ThemeProvider theme={customTextFieldTheme}>
@@ -183,6 +191,7 @@ export default function Login() {
                                 }
                                 onChange={handlePasswordInputChange}
                                 onBlur={validatePassword}
+                                onKeyUp={handleKeyPress}
                             />
                         </ThemeProvider>
                         <Button

@@ -18,6 +18,7 @@ export default function NetworkCard({
   skills,
   languages,
   chatId,
+  showChatIcon,
 }) {
   console.log(chatId);
   const router = useRouter();
@@ -59,15 +60,21 @@ export default function NetworkCard({
           </Typography>
         </div>
       </CardContent>
-      <Divider />
-      <CardActions disableSpacing>
-        <IconButton
-          aria-label="go to chat"
-          onClick={() => router.push({ pathname: "/chat", query: { chatId } })}
-        >
-          <SendIcon />
-        </IconButton>
-      </CardActions>
+      {showChatIcon && (
+        <>
+          <Divider />
+          <CardActions disableSpacing>
+            <IconButton
+              aria-label="go to chat"
+              onClick={() =>
+                router.push({ pathname: "/chat", query: { chatId } })
+              }
+            >
+              <SendIcon />
+            </IconButton>
+          </CardActions>
+        </>
+      )}
     </Card>
   );
 }

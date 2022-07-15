@@ -50,6 +50,7 @@ export default function DisplayMatch(props) {
                     skills={match.skills}
                     languages={match.languages}
                     chatId={match.conversation}
+                    showChatIcon={false}
                   ></NetworkCard>
                 ))}
               </div>
@@ -67,7 +68,7 @@ export default function DisplayMatch(props) {
         ) : (
           <div className={styles.loadingScreen}>
             <Typography variant="h2" style={{ color: "white" }}>
-              Finding your buddies
+              Finding you buddies
             </Typography>
             <CircularProgress size={200} thickness={4} {...props} />
           </div>
