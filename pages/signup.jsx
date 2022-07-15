@@ -40,7 +40,7 @@ export default function Signup() {
     };
 
     useEffect(() => {
-        !loading && loggedIn && router.push('/network');
+        //!loading && loggedIn && router.push('/network');
     }, [loading, loggedIn]);
 
     if (loading) return <LoadingIndicator />;

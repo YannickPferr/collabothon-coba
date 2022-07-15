@@ -237,7 +237,7 @@ export default function Login() {
                             fullWidth
                         >
                             <Typography variant="h6">
-                                Corporate Partners
+                                Partners
                             </Typography>
                         </Button>
                     </div>
