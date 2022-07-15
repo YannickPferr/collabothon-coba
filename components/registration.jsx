@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { useAlerts } from '../contexts/Alerts';
 import { useAuth } from '../contexts/Auth';
 import db from '../firebase.config';
-import styles from '../styles/registration.module.css';
+import styles from '../styles/Registration.module.css';
 
 const validEmailRegex =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -179,6 +179,7 @@ export default function Registration({ role = 'Buddy' }) {
             <div className={styles.textFieldContainer}>
                 <ThemeProvider theme={customTextFieldTheme}>
                     <TextField
+                        autoComplete="off"
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -203,6 +204,7 @@ export default function Registration({ role = 'Buddy' }) {
                 </ThemeProvider>
                 <ThemeProvider theme={customTextFieldTheme}>
                     <TextField
+                        autoComplete="off"
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -227,6 +229,7 @@ export default function Registration({ role = 'Buddy' }) {
                 </ThemeProvider>
                 <ThemeProvider theme={customTextFieldTheme}>
                     <TextField
+                        autoComplete="off"
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -253,6 +256,7 @@ export default function Registration({ role = 'Buddy' }) {
                 </ThemeProvider>
                 <ThemeProvider theme={customTextFieldTheme}>
                     <TextField
+                        autoComplete="off"
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
