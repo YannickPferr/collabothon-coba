@@ -1,5 +1,5 @@
 .main {
-    min-height: 100vh;
+    height: calc(100vh - 40px);
     padding: 4rem 0;
     flex: 1;
     display: flex;
@@ -10,10 +10,19 @@
 }
 
 .textFieldContainer {
-    width: 50%;
+    width: 60%;
     display: flex;
     gap: 1em;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.signupHeader {
+    color: white;
+    text-align: center;
+}
+
+.signupImage {
+    height: 18vw;
 }

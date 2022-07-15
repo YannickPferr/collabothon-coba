@@ -1,0 +1,15 @@
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border-top: 1px solid lightgray;
+    background: rgba(33, 177, 138, 0.7);
+    bottom: 0;
+    height: 40px;
+    align-items: center;
+}
+
+.column {
+    display: block;
+    margin-bottom: 5px;
+}

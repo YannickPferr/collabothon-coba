@@ -1,0 +1,79 @@
+.root {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 2;
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headline {
+  justify-content: center;
+}
+
+.cards {
+  width: 80%;
+  height: 70vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.stepper {
+  background: rgba(0, 0, 0, 0);
+  position: fixed;
+  bottom: 200px;
+  color: black !important;
+  justify-content: space-between;
+  display: flex;
+  width: 40%;
+}
+
+.carouselImage {
+  width: 80%;
+  margin: 10%;
+  max-width: 600px;
+  height: auto;
+}
+
+.carouselImageContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+}
+
+.carouselPaperContainer {
+  background-color: aquamarine;
+  border-radius: 10px;
+}
+
+.carouselTextContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.cardHeadline {
+  color: white;
+  margin: 50px;
+}
+
+.cardContent {
+  color: rgb(73, 73, 73);
+  margin: 20px;
+}
+
+.cardsRoot {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.endTourLink {
+  position: fixed;
+  bottom: 150px;
+}
