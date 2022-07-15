@@ -45,7 +45,7 @@ function Interests() {
       </Grid>
       <Grid item xs={8}>
         <Typography variant="h3" className={styles.languageHeader}>
-          Interests
+          Select your Superpowers!
         </Typography>
         <FormGroup>
           {skillsList.map((currentSkill) => (

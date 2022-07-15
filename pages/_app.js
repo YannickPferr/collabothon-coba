@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Alerts from '../components/Alerts';
+import Footer from '../components/Footer';
 import AlertsProvider from '../contexts/Alerts';
 import { AuthProvider } from '../contexts/Auth';
 import '../styles/globals.css';
@@ -9,12 +10,13 @@ function MyApp({ Component, pageProps }) {
         <>
             <Head>
                 {/*<link rel="icon" href="/favicon-compressed.png" />*/}
-                <title>Re Network</title>
+                <title>ReNetwork</title>
             </Head>
             <AuthProvider>
                 <AlertsProvider>
                     <Alerts />
                     <Component {...pageProps} />
+                    <Footer></Footer>
                 </AlertsProvider>
             </AuthProvider>
         </>

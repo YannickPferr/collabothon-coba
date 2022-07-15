@@ -37,7 +37,7 @@ export default function bestPracticesPage() {
           className={styles.textHeader}
           sx={textSizingHeader}
         >
-          Blabla Blabla Question Lorem Ipsum Collabothon?
+          What is a good buddy?
         </Typography>
         <Typography
           variant="h2"
@@ -46,15 +46,7 @@ export default function bestPracticesPage() {
           className={styles.text}
           sx={textSizingNormal}
         >
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-          ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-          sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-          dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-          et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-          takimata sanctus est Lorem ipsum dolor sit amet.
+          If you choose to be a buddy, it is important to have thorough knowledge of your neighborhood and its quirks and features. It is also advantageous if you have already had experience with the asylum process or are a former refugee yourself. As a buddy you will be a mentor and share your past experiences. You have the ability to take the time to help refugees with your advice and action. Intercultural communication is your passion, and you have an affinity for languages.
         </Typography>
       </div>
 
@@ -66,7 +58,7 @@ export default function bestPracticesPage() {
           className={styles.textHeader}
           sx={textSizingHeader}
         >
-          Blabla Blabla Question Lorem Ipsum Collabothon?
+          Buddies do not have to be perfect
         </Typography>
         <Typography
           variant="h2"
@@ -75,15 +67,9 @@ export default function bestPracticesPage() {
           className={styles.text}
           sx={textSizingNormal}
         >
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-          ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-          sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-          dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-          et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-          takimata sanctus est Lorem ipsum dolor sit amet.
+          It is not necessary that you are already an expert at everything. Much more important is your
+          willingness to help refugees to find their way in a new environment. You have been living here and
+          have a great deal of regional experience, which the refugees can benefit from the most.
         </Typography>
       </div>
 
@@ -95,7 +81,7 @@ export default function bestPracticesPage() {
           className={styles.textHeader}
           sx={textSizingHeader}
         >
-          Blabla Blabla Question Lorem Ipsum Collabothon?
+          General Tipps
         </Typography>
         <Typography
           variant="h2"
@@ -104,15 +90,34 @@ export default function bestPracticesPage() {
           className={styles.text}
           sx={textSizingNormal}
         >
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-          ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-          sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-          dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-          et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-          takimata sanctus est Lorem ipsum dolor sit amet.
+          Don't get overwhelmed. There are extremely many issues refugees are facing. Still, you can be proactive
+          and signal that you're there and standing by for help with some of the issues. Stay positive and
+          support in this way. Patience is also required, change often takes time. Try to understand the
+          refugee’s personality and adapt your communication style accordingly.
+        </Typography>
+      </div>
+
+      <div className={styles.textDiv}>
+        <Typography
+          variant="h2"
+          display="block"
+          gutterBottom
+          className={styles.textHeader}
+          sx={textSizingHeader}
+        >
+          Responsibility
+        </Typography>
+        <Typography
+          variant="h2"
+          display="block"
+          gutterBottom
+          className={styles.text}
+          sx={textSizingNormal}
+        >
+          A buddy provides moral support in the first important weeks by introducing the new living
+          environment. Relationships matter. A buddy may be the first point of contact for refugees and should
+          be capable of establishing help quickly. You want people to feel comfortable and safe asking
+          questions and bringing up issues. We live the culture of openness and teamwork.
         </Typography>
       </div>
     </div>

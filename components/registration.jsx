@@ -1,4 +1,4 @@
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, InputAdornment, TextField, Typography } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import bcrypt from "bcryptjs";
 import { doc, getDoc, setDoc } from "firebase/firestore";
@@ -7,6 +7,9 @@ import { useAlerts } from "../contexts/Alerts";
 import { useAuth } from "../contexts/Auth";
 import db from "../firebase.config";
 import styles from "../styles/registration.module.css";
+import EmailIcon from '@mui/icons-material/Email';
+import KeyIcon from '@mui/icons-material/Key';
+import PersonIcon from '@mui/icons-material/Person';
 
 const validEmailRegex =
   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -144,6 +147,13 @@ export default function Registration({ role = "Buddy" }) {
       <div className={styles.textFieldContainer}>
         <ThemeProvider theme={customTextFieldTheme}>
           <TextField
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PersonIcon />
+                </InputAdornment>
+              ),
+            }}
             id="outlined-basic"
             label="Name"
             type="text"
@@ -159,6 +169,13 @@ export default function Registration({ role = "Buddy" }) {
         </ThemeProvider>
         <ThemeProvider theme={customTextFieldTheme}>
           <TextField
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <EmailIcon />
+                </InputAdornment>
+              ),
+            }}
             id="outlined-basic"
             label="Email"
             type="email"
@@ -174,6 +191,13 @@ export default function Registration({ role = "Buddy" }) {
         </ThemeProvider>
         <ThemeProvider theme={customTextFieldTheme}>
           <TextField
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <KeyIcon />
+                </InputAdornment>
+              ),
+            }}
             id="outlined-basic"
             label="Password"
             type="password"
@@ -189,6 +213,13 @@ export default function Registration({ role = "Buddy" }) {
         </ThemeProvider>
         <ThemeProvider theme={customTextFieldTheme}>
           <TextField
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <KeyIcon />
+                </InputAdornment>
+              ),
+            }}
             id="outlined-basic"
             label="Repeat password"
             type="password"
