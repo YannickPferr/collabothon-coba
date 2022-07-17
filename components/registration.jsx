@@ -47,7 +47,6 @@ export default function Registration({ role = 'Buddy' }) {
     const getRandomPerson = () => {
         let randomIdx = Math.random() * (mockPeople.length - 0) + 0;
         let migrant = mockPeople.splice(randomIdx, 1);
-        console.log(migrant[0]);
         return migrant[0];
     };
 

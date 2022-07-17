@@ -36,17 +36,17 @@
 
 .buttonBuddy {
     height: 40vw;
-    background-image: url('../public/mock-images/buddies3.png');
+    background-image: url('/mock-images/buddies3.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 35vw;
     vertical-align: text-top;
-    background-color: transparent;
+    background-color: transparent !important;
 }
 
 .buttonBuddy:hover {
     background: rgba(0, 0, 0, 0.15);
-    background-image: url('../public/mock-images/buddies3.png');
+    background-image: url('/mock-images/buddies3.png');
     height: 70vh;
     background-repeat: no-repeat;
     background-position: center;
@@ -55,16 +55,16 @@
 
 .buttonRefugee {
     height: 40vw;
-    background-image: url('../public/mock-images/questions.png');
+    background-image: url('/mock-images/questions.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 35vw;
-    background-color: transparent;
+    background-color: transparent !important;
 }
 
 .buttonRefugee:hover {
     background: rgba(0, 0, 0, 0.15);
-    background-image: url('../public/mock-images/questions.png');
+    background-image: url('/mock-images/questions.png');
     height: 70vh;
     background-repeat: no-repeat;
     background-position: center;

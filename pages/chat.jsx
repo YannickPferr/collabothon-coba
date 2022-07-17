@@ -1,4 +1,3 @@
-import { Typography } from '@mui/material';
 import List from '@mui/material/List';
 import {
     collection,
@@ -6,6 +5,8 @@ import {
     getDoc,
     getDocs,
     onSnapshot,
+    query,
+    where,
 } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -18,58 +19,99 @@ import { useAuth } from '../contexts/Auth';
 import db from '../firebase.config';
 import styles from '../styles/Chat.module.css';
 
-export default function Chat(props) {
-    const { user, loggedIn, loading } = useAuth();
-    const router = useRouter();
-
-    const [update, setUpdate] = useState(false);
-    const [conversations, setConversations] = useState(props.conversations);
-    const [selectedChat, setSelectedChat] = useState(0);
-
-    useEffect(() => {
-        if (router.query.chatId && user)
-            setSelectedChat(
-                conversations[user.email].findIndex(
-                    (conversation) =>
-                        conversation.chatId === router.query.chatId
-                )
-            );
-    }, [router.query.chatId]);
-
-    useEffect(() => {
-        if (update) {
-            setConversations(props.conversations);
-            setUpdate(false);
-        }
-    }, [update]);
-
-    useEffect(() => {
-        const unsub = onSnapshot(collection(db, 'message'), (doc) => {
+export default function Chat() {
+    const fetchAllMessgages = () => {
+        const messagesRef = collection(db, 'message');
+        const unsub = onSnapshot(messagesRef, (doc) => {
             const newMessages = [];
             doc.docChanges().forEach((change) => {
                 const changedData = change.doc.data();
-                props.conversations[changedData.from]
-                    .find(
-                        (conversation) =>
-                            conversation.chatId === changedData.conversation
-                    )
-                    .messages?.push(changedData);
-
-                props.conversations[changedData.to]
-                    .find(
-                        (conversation) =>
-                            conversation.chatId === changedData.conversation
-                    )
-                    .messages?.push(changedData);
+                if (
+                    changedData.from === user.email ||
+                    changedData.to === user.email
+                )
+                    newMessages.push({
+                        chatId: changedData.conversation,
+                        data: changedData,
+                    });
             });
-            setUpdate(true);
+            newMessages.forEach((msg) => {
+                setConversations((oldState) => ({
+                    ...oldState,
+                    [msg.chatId]: {
+                        ...oldState[msg.chatId],
+                        messages: oldState[msg.chatId]
+                            ? [...oldState[msg.chatId].messages, msg.data]
+                            : [msg.data],
+                    },
+                }));
+            });
         });
-        return () => unsub();
-    }, []);
+        return unsub;
+    };
+
+    const fetchAllConversations = async () => {
+        const convs = {};
+        const conversationsRef = collection(db, 'conversation');
+        const role = user.role === 'Buddy' ? 'buddy' : 'migrant';
+        const q = query(conversationsRef, where(role, '==', user.email));
+        const relevantConversations = await getDocs(q);
+        await Promise.all(
+            relevantConversations.docs.map(async (conversation) => {
+                const convData = conversation.data();
+                if (user.role === 'Buddy') {
+                    const docRefMigrant = doc(db, 'user', convData.migrant);
+                    const migrantDoc = await getDoc(docRefMigrant);
+                    const migrantData = migrantDoc.data();
+
+                    convs[conversation.id] = {
+                        name: migrantData.name,
+                        email: migrantData.email,
+                        messages: conversations[conversation.id]?.messages
+                            ? conversations[conversation.id]?.messages
+                            : [],
+                    };
+                } else {
+                    const docRefBuddy = doc(db, 'user', convData.buddy);
+                    const buddyDoc = await getDoc(docRefBuddy);
+                    const buddyData = buddyDoc.data();
+
+                    convs[conversation.id] = {
+                        name: buddyData.name,
+                        email: buddyData.email,
+                        messages: conversations[conversation.id]?.messages
+                            ? conversations[conversation.id]?.messages
+                            : [],
+                    };
+                }
+            })
+        );
+        const unsub = await fetchAllMessgages();
+        setConversations(convs);
+        return unsub;
+    };
+
+    const { user, loggedIn, loading } = useAuth();
+    const router = useRouter();
+
+    const [conversations, setConversations] = useState({});
+    const [selectedChat, setSelectedChat] = useState(0);
 
     useEffect(() => {
-        console.log(loading + ' ' + loggedIn);
-        !loading && !loggedIn && router.push('/login');
+        router.query.chatId &&
+            !loading &&
+            setSelectedChat(
+                Object.keys(conversations).findIndex(
+                    (chatId) => chatId === router.query.chatId
+                )
+            );
+    }, [router.query.chatId, conversations]);
+
+    useEffect(() => {
+        if (!loading) {
+            if (loggedIn) fetchAllConversations();
+            else router.push('/login');
+        }
     }, [loading, loggedIn]);
 
     if (loading) return <LoadingIndicator />;
@@ -89,42 +131,38 @@ export default function Chat(props) {
                                     overflow: 'auto',
                                 }}
                             >
-                                {user &&
-                                    conversations &&
-                                    conversations[user.email]?.map(
-                                        (conversation, index) => (
-                                            <MessagePreview
-                                                key={conversation.toUser.name}
-                                                name={conversation.toUser.name}
-                                                message={
-                                                    conversation.messages[
-                                                        conversation.messages
-                                                            .length - 1
-                                                    ]?.message
-                                                }
-                                                selectChat={setSelectedChat}
-                                                index={index}
-                                            ></MessagePreview>
-                                        )
-                                    )}
+                                {Object.keys(conversations)?.map(
+                                    (chatId, index) => (
+                                        <MessagePreview
+                                            key={chatId}
+                                            name={conversations[chatId].name}
+                                            message={
+                                                conversations[chatId].messages[
+                                                    conversations[chatId]
+                                                        .messages.length - 1
+                                                ]?.message
+                                            }
+                                            selectChat={setSelectedChat}
+                                            index={index}
+                                        ></MessagePreview>
+                                    )
+                                )}
                             </List>
-                            {user && conversations[user.email] ? (
+                            {Object.keys(conversations)[selectedChat] ? (
                                 <ChatView
                                     chatId={
-                                        conversations[user.email][selectedChat]
-                                            .chatId
+                                        Object.keys(conversations)[selectedChat]
                                     }
-                                    toUser={
-                                        conversations[user.email][selectedChat]
-                                            .toUser
-                                    }
-                                    msgs={
-                                        conversations[user.email][selectedChat]
-                                            .messages
+                                    conversation={
+                                        conversations[
+                                            Object.keys(conversations)[
+                                                selectedChat
+                                            ]
+                                        ]
                                     }
                                 />
                             ) : (
-                                <Typography variant="h2">No Chat</Typography>
+                                <LoadingIndicator />
                             )}
                         </div>
                     </div>
@@ -133,49 +171,4 @@ export default function Chat(props) {
             )}
         </>
     );
-}
-
-const fetchAllConversations = async () => {
-    const conversations = {};
-    const conversationsRef = collection(db, 'conversation');
-    const relevantConversations = await getDocs(conversationsRef);
-    await Promise.all(
-        relevantConversations.docs.map(async (conversation) => {
-            // doc.data() is never undefined for query doc snapshots
-            const convData = conversation.data();
-            const docRefBuddy = doc(db, 'user', convData.buddy);
-            const buddyDoc = await getDoc(docRefBuddy);
-            const buddyData = buddyDoc.data();
-
-            const docRefMigrant = doc(db, 'user', convData.migrant);
-            const migrantDoc = await getDoc(docRefMigrant);
-            const migrantData = migrantDoc.data();
-
-            if (!conversations[migrantData.email])
-                conversations[migrantData.email] = [];
-            conversations[migrantData.email].push({
-                chatId: conversation.id,
-                toUser: { email: buddyData.email, name: buddyData.name },
-                messages: [],
-            });
-
-            if (!conversations[buddyData.email])
-                conversations[buddyData.email] = [];
-            conversations[buddyData.email].push({
-                chatId: conversation.id,
-                toUser: { email: migrantData.email, name: migrantData.name },
-                messages: [],
-            });
-        })
-    );
-    return conversations;
-};
-
-export async function getStaticProps() {
-    const conversations = await fetchAllConversations();
-    return {
-        props: {
-            conversations: JSON.parse(JSON.stringify(conversations)),
-        },
-    };
 }
