@@ -201,14 +201,16 @@ function Location({ isBuddy }) {
                                 <Grid item xs={3} style={{ marginBottom: 20 }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="demo-simple-select-label">
-                                            How can you help?
+                                            How do you want to receive help?
                                         </InputLabel>
                                         <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
                                             value={howCanYouHelpSelect}
                                             onChange={handleSelectChange}
-                                            label={'How can you help?'}
+                                            label={
+                                                'How do you want to receive help?'
+                                            }
                                         >
                                             <MenuItem value={'Online'}>
                                                 Online

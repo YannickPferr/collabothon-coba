@@ -17,7 +17,7 @@ function Languages({ isBuddy }) {
     const handleDelete = (languageToDelete) => () => {
         setSelectedLanguages((languages) =>
             languages.filter(
-                (language) => language.code !== languageToDelete.code
+                (language) => language?.code !== languageToDelete?.code
             )
         );
     };
@@ -79,12 +79,12 @@ function Languages({ isBuddy }) {
                     let icon;
 
                     return (
-                        <ListItem key={language.key}>
+                        <ListItem key={language?.key}>
                             <Chip
                                 icon={icon}
-                                label={language.name}
+                                label={language?.name}
                                 onDelete={
-                                    language.label === 'React'
+                                    language?.label === 'React'
                                         ? undefined
                                         : handleDelete(language)
                                 }
