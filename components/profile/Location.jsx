@@ -51,7 +51,7 @@ function Location({ isBuddy }) {
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-maps-script',
-        googleMapsApiKey: 'AIzaSyBuA4bIVmp5ZBYDuY0n5qSr5ML8agqnQyI',
+        googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
     });
 
     const onLoad = React.useCallback(function callback(map) {

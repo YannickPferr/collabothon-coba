@@ -1,30 +1,65 @@
-.cardContainer {
+.container {
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    height: calc(100vh - 130px);
+    padding: 1em;
+    overflow: auto;
+}
+
+.mainDisplayMatch {
+    padding: 1rem 0;
+    flex: 1;
+    display: flex;
+    gap: 1em;
+    flex-direction: row;
     justify-content: space-evenly;
-    margin-top: 50px;
-    height: 40vh
+    align-items: center;
+    flex-wrap: wrap;
+    animation-name: stretch;
+    animation-duration: 2s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-fill-mode: none;
+    animation-play-state: running;
 }
 
-.card {
-    width: 25%;
-}
-
-.infoCardContainer {
+.header {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-}
-
-.infoCard {
-    width: 88%
+    align-items: center;
+    flex-direction: column;
 }
 
 .buttonContainer {
-    display: flex;
     align-items: center;
+    display: flex;
     justify-content: center;
-    height: 20vh
+    height: 90px;
 }
 
-.continueButton {}
+.continueButton {
+    background-color: aquamarine;
+}
+
+@keyframes stretch {
+    0% {
+        transform: scale(0.01);
+    }
+
+    50% {
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.loadingScreen {
+    width: auto;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}

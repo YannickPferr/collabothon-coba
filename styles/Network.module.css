@@ -17,59 +17,9 @@
     flex-wrap: wrap;
 }
 
-.mainDisplayMatch {
-    padding: 1rem 0;
-    flex: 1;
-    display: flex;
-    gap: 1em;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-wrap: wrap;
-    animation-name: stretch;
-    animation-duration: 4s;
-    animation-timing-function: ease-out;
-    animation-delay: 0;
-    animation-direction: alternate;
-    animation-fill-mode: none;
-    animation-play-state: running;
-}
-
 .header {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-
-.buttonContainer {
-    align-items: flex-start;
-    display: flex;
-    justify-content: center;
-    height: 90px;
-}
-
-.continueButton {
-    background-color: aquamarine;
-}
-
-@keyframes stretch {
-    0% {
-        transform: scale(.01);
-    }
-
-    50% {}
-
-    100% {
-        transform: scale(1);
-    }
-}
-
-.loadingScreen {
-    width: auto;
-    display: flex;
-    justify-content: space-evenly;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
 }

@@ -20,7 +20,7 @@ export default function NetworkCard({
     chatId,
     showChatIcon,
 }) {
-    console.log(chatId);
+
     const router = useRouter();
     const fullname = name.split(' ');
     return (

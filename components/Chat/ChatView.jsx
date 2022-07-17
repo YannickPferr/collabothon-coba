@@ -1,12 +1,12 @@
 import SendIcon from '@mui/icons-material/Send';
 import { Button, List, ListItem, ListItemText, TextField } from '@mui/material';
 import { addDoc, collection, Timestamp } from 'firebase/firestore';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '../../contexts/Auth';
 import db from '../../firebase.config';
 import styles from '../../styles/ChatView.module.css';
 
-export default function ChatView({ chatId, toUser, msgs }) {
+export default function ChatView({ chatId, conversation }) {
     const { user } = useAuth();
     const [text, setText] = useState('');
     const ref = useRef(null);
@@ -16,7 +16,7 @@ export default function ChatView({ chatId, toUser, msgs }) {
             const docRef = await addDoc(collection(db, 'message'), {
                 conversation: chatId,
                 from: user.email,
-                to: toUser.email,
+                to: conversation.email,
                 time: Timestamp.now(),
                 message: text,
             });
@@ -33,11 +33,15 @@ export default function ChatView({ chatId, toUser, msgs }) {
         if (e.keyCode == 13) sendMessage();
     };
 
+    useEffect(() => {
+        ref.current && ref.current.scrollIntoView({ behavior: 'smooth' });
+    }, [ref.current]);
+
     return (
         <div className={styles.container}>
             <div className={styles.chatView}>
                 <List sx={{ width: '100%', height: '100%' }}>
-                    {msgs.map((message) => {
+                    {conversation.messages.map((message) => {
                         return (
                             <div
                                 className={
