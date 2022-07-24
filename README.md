@@ -1,4 +1,4 @@
-## Application Demo Video
+## Application Demo
 [![ReNetwork Demo](http://img.youtube.com/vi/mr9WcN4rklQ/0.jpg)](http://www.youtube.com/watch?v=mr9WcN4rklQ "ReNetwork Demo")
 
 Check out the video [here](http://www.youtube.com/watch?v=mr9WcN4rklQ) or [try the app yourself](http://collabothon-coba.vercel.app)!
