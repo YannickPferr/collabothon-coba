@@ -60,7 +60,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 50vw;
+  width: 50%;
   margin-top: 20px;
 }
 
@@ -68,5 +68,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(6, 30, 243, 0.3)
+  background-color: rgba(6, 30, 243, 0.3);
 }
